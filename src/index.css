@@ -11,3 +11,11 @@ h1,h2,h3{
 p,a,input{
   font-family: "Poppins", sans-serif;
 }
+
+li:hover{
+color: #FFB534;
+}
+.active{
+border-bottom: 3px solid #FFB534;
+padding: 5px;
+}

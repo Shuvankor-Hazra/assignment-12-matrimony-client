@@ -40,7 +40,7 @@ const Registration = () => {
 
     // email password registration
     const onSubmit = (data) => {
-        // console.log(data)
+        console.log(data)
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
@@ -131,6 +131,7 @@ const Registration = () => {
                                     className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                     type='text'
                                 />
+                                {errors.name?.type === 'required' && <span className="text-warning font-medium">Name is required</span>}
                             </div>
                             <div className='mt-4'>
                                 <label
@@ -147,6 +148,7 @@ const Registration = () => {
                                     className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                     type='text'
                                 />
+                                {errors.photoURL?.type === 'required' && <span className="text-warning font-medium">PhotoURL is required</span>}
                             </div>
                             <div className='mt-4'>
                                 <label
@@ -163,6 +165,7 @@ const Registration = () => {
                                     className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                     type='email'
                                 />
+                                {errors.email?.type === 'required' && <span className="text-warning font-medium">Email is required</span>}
                             </div>
 
                             <div className='mt-4'>

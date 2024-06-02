@@ -7,11 +7,11 @@ const Main = () => {
     return (
         <>
             {/* Navbar */}
-            <div className="max-w-screen-xl mx-auto mb-20">
+            <div className="">
                 <Navbar />
             </div>
             {/* Outlet */}
-            <div className="min-h-[calc(100vh-368px)] max-w-screen-xl mx-auto">
+            <div className="min-h-[calc(100vh-368px)]">
                 <Outlet />
             </div>
             {/* Footer */}
