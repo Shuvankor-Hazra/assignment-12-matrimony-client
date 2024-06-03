@@ -20,27 +20,9 @@ const Registration = () => {
         signInWithGoogle,
         updateUserProfile, } = useAuth();
 
-    // google login
-    const handleGoogleSignIn = async () => {
-        try {
-            await signInWithGoogle();
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Login with google successful",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            navigate(from, { replace: true });
-        } catch (err) {
-            console.log(err);
-            toast.error(err?.message);
-        }
-    }
-
     // email password registration
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
@@ -71,9 +53,28 @@ const Registration = () => {
                             })
                     })
                     .catch(error => {
-                        toast.error(error)
+                        console.log(error.message);
+                        toast.error(error.message)
                     })
             })
+    }
+
+    // google login
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle();
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Login with google successful",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            navigate(from, { replace: true });
+        } catch (err) {
+            console.log(err);
+            toast.error(err?.message);
+        }
     }
 
     return (
@@ -81,7 +82,7 @@ const Registration = () => {
             <Helmet>
                 <title>Shaadi.com | Register</title>
             </Helmet>
-            <div className='flex justify-center items-center min-h-[calc(100vh-306px)]'>
+            <div className='flex justify-center items-center min-h-[calc(100vh-306px)] pt-40'>
                 <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl '>
                     <div className='w-full px-6 py-8 md:px-8 lg:w-1/2'>
                         <div className='flex justify-center mx-auto'>
@@ -115,18 +116,19 @@ const Registration = () => {
 
                             <span className='w-1/5 border-b dark:border-gray-400 lg:w-1/4'></span>
                         </div>
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form onSubmit={handleSubmit(onSubmit)} >
                             <div className='mt-4'>
                                 <label
                                     className='block mb-2 text-sm font-medium text-gray-600 '
                                     htmlFor='name'
                                 >
-                                    Username
+                                    User Name
                                 </label>
                                 <input
                                     id='name'
                                     autoComplete='name'
                                     name='name'
+                                    placeholder="User name"
                                     {...register("name", { required: true })}
                                     className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                     type='text'
@@ -144,6 +146,7 @@ const Registration = () => {
                                     id='photoURL'
                                     autoComplete='photoURL'
                                     name='photo'
+                                    placeholder="PhotoURL"
                                     {...register("photoURL", { required: true })}
                                     className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                     type='text'
@@ -161,6 +164,7 @@ const Registration = () => {
                                     id='LoggingEmailAddress'
                                     autoComplete='email'
                                     name='email'
+                                    placeholder="User email"
                                     {...register("email", { required: true })}
                                     className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                     type='email'
@@ -182,6 +186,7 @@ const Registration = () => {
                                     id='loggingPassword'
                                     autoComplete='current-password'
                                     name='password'
+                                    placeholder="User password"
                                     {...register("password", {
                                         required: true,
                                         minLength: 6,

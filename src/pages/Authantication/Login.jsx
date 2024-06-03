@@ -14,24 +14,6 @@ const Login = () => {
 
     const from = location.state?.from?.pathname || "/";
 
-    // google login
-    const handleGoogleSignIn = async () => {
-        try {
-            await signInWithGoogle();
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Login successful",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            navigate(from, { replace: true });
-        } catch (err) {
-            console.log(err);
-            toast.error(err?.message);
-        }
-    }
-
     // email login
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -56,12 +38,30 @@ const Login = () => {
         }
     }
 
+    // google login
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle();
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Login successful",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            navigate(from, { replace: true });
+        } catch (err) {
+            console.log(err);
+            toast.error(err?.message);
+        }
+    }
+
     return (
         <>
             <Helmet>
                 <title>Shaadi.com | Login</title>
             </Helmet>
-            <div className='flex justify-center items-center min-h-[calc(100vh-306px)]'>
+            <div className='flex justify-center items-center min-h-[calc(100vh-306px)] pt-40'>
                 <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl '>
                     <div
                         className='hidden bg-cover bg-center lg:block lg:w-1/2'

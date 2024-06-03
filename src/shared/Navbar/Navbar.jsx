@@ -18,14 +18,15 @@ const Navbar = () => {
 
     const navItems = <>
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/menu'>Our Menu</NavLink></li>
-        <li><NavLink to='/order/salads'>Order Food</NavLink></li>
+        <li><NavLink to='/bioData'>Bio data</NavLink></li>
+        <li><NavLink to='/aboutUs'>About Us</NavLink></li>
+        <li><NavLink to='/contactUs'>Contact Us</NavLink></li>
+        {
+            user && <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+        }
         {/* {
-        user && isAdmin && <li><NavLink to='/dashboard/adminHome'>Dashboard</NavLink></li>
-    }
-    {
-        user && !isAdmin && <li><NavLink to='/dashboard/userHome'>Dashboard</NavLink></li>
-    } */}
+            user && <li><NavLink to='/dashboard/userHome'>Dashboard</NavLink></li>
+        } */}
     </>
 
     return (
@@ -83,14 +84,14 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <Link to={'/'}>
-                    <div className='flex items-center gap-3 text-[#FFB534]' >
-                    <img className='w-14 h-14 rounded-full border-2 border-[#FFB534]' src={logo} alt='logo' />
-                    <h1 className='text-xl lg:text-3xl font-bold'>Shaddi.com</h1>
+                    <div className='flex items-center gap-3 ' >
+                        <img className='w-14 h-14 rounded-full border-2 border-[#F99417]' src={logo} alt='logo' />
+                        <h1 className='text-xl lg:text-3xl font-bold'>Shaddi.com</h1>
                     </div>
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu-horizontal space-x-6 text-xl font-semibold font-playFair">
+                <ul className="menu-horizontal space-x-6 text-xl font-medium font-playFair">
                     {navItems}
                 </ul>
             </div>
@@ -102,7 +103,7 @@ const Navbar = () => {
                             role='button'
                             className='btn btn-ghost btn-circle avatar mr-5'
                         >
-                            <div title={user?.displayName} className='w-full border-2 border-[#FFB534] rounded-full'>
+                            <div title={user?.displayName} className='w-full border-2 border-[#F99417] rounded-full'>
                                 <img
                                     referrerPolicy='no-referrer'
                                     alt='User Profile Photo'
@@ -110,9 +111,9 @@ const Navbar = () => {
                                 />
                             </div>
                         </div>
-                        <button onClick={handleLogOut} className="btn btn-outline border border-b-4 border-[#FFB534] text-white uppercase">Sign Out</button>
+                        <button onClick={handleLogOut} className="btn btn-outline border border-b-4 border-[#F99417] text-white uppercase">Sign Out</button>
                     </> : <>
-                        <Link to={'/login'} className="btn btn-outline border border-b-4 border-[#FFB534] text-white uppercase">Sign In</Link>
+                        <Link to={'/login'} className="btn btn-outline border border-b-4 border-[#F99417] text-white uppercase">Sign In</Link>
                     </>
                 }
             </div>

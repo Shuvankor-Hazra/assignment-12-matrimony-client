@@ -13,9 +13,9 @@ p,a,input{
 }
 
 li:hover{
-color: #FFB534;
+color: #F99417;
 }
 .active{
-border-bottom: 3px solid #FFB534;
+border-bottom: 3px solid #F99417;
 padding: 5px;
 }
