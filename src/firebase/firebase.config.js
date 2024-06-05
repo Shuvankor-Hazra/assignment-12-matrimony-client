@@ -15,15 +15,3 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-
-
-// Your web app's Firebase configuration //
-
-// const firebaseConfig = {
-//   apiKey: AIzaSyDqHlz6WujWW_X8FSj_i5GKFxsRTGIrgt8
-//   authDomain: shaadidotcom-af40a.firebaseapp.com
-//   projectId: shaadidotcom-af40a
-//   storageBucket: shaadidotcom-af40a.appspot.com
-//   messagingSenderId: 921872908604
-//   appId: 1:921872908604:web:cb18a8bc623b853ec05e39
-// };

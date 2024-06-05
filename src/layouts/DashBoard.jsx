@@ -10,7 +10,7 @@ const DashBoard = () => {
                 <Sidebar />
             </div>
             {/* outlet */}
-            <div className="flex-1 md:ml-64">
+            <div className="flex-1 md:ml-72">
                 <div className="p-5">
                     <Outlet />
                 </div>

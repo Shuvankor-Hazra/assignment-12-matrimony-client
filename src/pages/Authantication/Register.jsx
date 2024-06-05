@@ -7,15 +7,13 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Registration = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const { user,
-        setUser,
+    const { user, setUser,
         createUser,
         signInWithGoogle,
         updateUserProfile, } = useAuth();
@@ -28,34 +26,21 @@ const Registration = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 updateUserProfile(data.name, data.photoURL)
-                setUser({ ...user, photoURL: data.photoURL, displayName: data.name })
                     .then(() => {
-                        // create user entry in the database
-                        const userInfo = {
-                            name: data.name,
-                            email: data.email
-                        }
-                        useAxiosPublic.post('/users', userInfo)
-                            .then(res => {
-                                console.log(res.data);
-                                if (res.data.insertedId) {
-                                    console.log('User added to the database');
-                                    reset();
-                                    navigate(from, { replace: true })
-                                    Swal.fire({
-                                        position: "center",
-                                        icon: "success",
-                                        title: "Sign Up Successful",
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                }
-                            })
+                        setUser({ ...user, photoURL: data.photoURL, displayName: data.name })
+                        reset();
+                        navigate(from, { replace: true })
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Sign Up Successful",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
                     })
-                    .catch(error => {
-                        console.log(error.message);
-                        toast.error(error.message)
-                    })
+            }).catch(error => {
+                console.log(error);
+                toast.error(error.message)
             })
     }
 
@@ -92,28 +77,22 @@ const Registration = () => {
                                 alt=''
                             />
                         </div>
-
                         <p className='mt-3 text-xl text-center text-gray-600 '>
                             Get Your Free Account Now.
                         </p>
-
                         <div onClick={handleGoogleSignIn} className='flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 '>
                             <div className='px-4 py-2'>
                                 <FaGoogle className="text-green-500" />
                             </div>
-
                             <span className='w-5/6 px-4 py-3 font-bold text-center'>
                                 Sign in with Google
                             </span>
                         </div>
-
                         <div className='flex items-center justify-between mt-4'>
                             <span className='w-1/5 border-b  lg:w-1/4'></span>
-
                             <div className='text-xs text-center text-gray-500 uppercase  hover:underline cursor-pointer'>
                                 or Registration with email
                             </div>
-
                             <span className='w-1/5 border-b dark:border-gray-400 lg:w-1/4'></span>
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)} >

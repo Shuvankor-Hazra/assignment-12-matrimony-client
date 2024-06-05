@@ -7,6 +7,10 @@ import Login from "../../pages/Authantication/Login";
 import Register from "../../pages/Authantication/Register";
 import DashBoard from "../../layouts/DashBoard";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
+import Details from "../../pages/Details/Details";
+import Profile from "../../pages/Dashboard/Common/Profile";
+import ManageUsers from "../../components/Dashboard/Admin/ManageUsers";
+import AdminDashboard from "../../components/Dashboard/Admin/AdminDashboard";
 
 
 const router = createBrowserRouter([
@@ -27,16 +31,29 @@ const router = createBrowserRouter([
                 path: '/register',
                 element: <Register />
             },
+            {
+                path: '/details/:id',
+                element: <Details />,
+                loader: ({ params }) => fetch(`http://localhost:9000/premiumMembers/${params.id}`)
+            },
         ]
     },
     {
         path: '/dashboard',
         element: <DashBoard />,
-        errorElement: <ErrorPage />,
         children: [
             {
-
-            }
+                index: true,
+                element: <AdminDashboard />
+            },
+            {
+                path: 'manage-users',
+                element: <ManageUsers />
+            },
+            {
+                path: 'profile',
+                element: <Profile />
+            },
         ]
     }
 ]);
