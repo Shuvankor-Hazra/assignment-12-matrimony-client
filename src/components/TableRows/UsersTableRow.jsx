@@ -1,14 +1,43 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import UpdateUserModal from '../Modal/UpdateUserModal';
+import { useMutation } from '@tanstack/react-query';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
+import useAuth from '../../hooks/useAuth';
 const UsersTableRow = ({ user, refetch }) => {
-
+    const { user: loggedInUser } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const [isOpen, setIsOpen] = useState(false);
-
+    const { mutateAsync } = useMutation({
+        mutationFn: async (role) => {
+            const { data } = await axiosSecure.patch(`/users/update/${user?.email}`, role);
+            return data;
+        },
+        onSuccess: (data) => {
+            refetch()
+            console.log(data);
+            toast.success('User role updated successfully!');
+            setIsOpen(false);
+        }
+    });
 
     // Modal Handler
-    const modalHandler = (selected) => {
-        console.log('User role updated', selected);
+    const modalHandler = async (selected) => {
+        if (loggedInUser.email === user.email) {
+            toast.error('Action Not Allowed')
+            return setIsOpen(false);
+        }
+        const userRole = {
+            role: selected,
+            status: 'normal',
+        }
+        try {
+            await mutateAsync(userRole);
+        } catch (err) {
+            console.log(err.message);
+            toast.error(err.message);
+        }
     }
 
     return (

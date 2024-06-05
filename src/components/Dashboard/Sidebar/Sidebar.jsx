@@ -10,17 +10,24 @@ import useRole from '../../../hooks/useRole'
 import MenuItem from './Menu/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
 import GuestMenu from './Menu/GuestMenu'
+import ToggleBtn from '../../../shared/Buttons/ToggleBtn'
 
 const Sidebar = () => {
     const { logOut } = useAuth()
     const [isActive, setActive] = useState(false)
     const [role, isLoading] = useRole();
-    console.log(role, isLoading);
+    const [toggle, setToggle] = useState(true);
 
     // Sidebar Responsive Handler
     const handleToggle = () => {
         setActive(!isActive)
     }
+
+    const toggleHandler = (event) => {
+        setToggle(event.target.checked);
+    }
+
+
     return (
         <>
             {/* Small Screen Navbar */}
@@ -71,11 +78,10 @@ const Sidebar = () => {
                     {/* Nav Items */}
                     <div className='flex flex-col justify-between flex-1 mt-6'>
                         {/* Conditional toggle button here.. */}
-
+                        {role === 'admin' && <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />}
                         {/*  Menu Items */}
                         <nav>
-                            <AdminMenu />
-                            {/* {role === 'admin' && <AdminMenu />} */}
+                            {role === 'admin' ? toggle ? <AdminMenu /> : <GuestMenu /> : undefined}
                             {role === 'guest' && <GuestMenu />}
                         </nav>
                     </div>
