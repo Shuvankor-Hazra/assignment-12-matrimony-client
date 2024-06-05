@@ -1,12 +1,10 @@
 import { Helmet } from 'react-helmet-async'
-import useAuth from '../../../hooks/useAuth'
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../LoadingSpinner';
 import UsersTableRow from '../../TableRows/UsersTableRow';
 
 const ManageUsers = () => {
-    const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
@@ -47,7 +45,7 @@ const ManageUsers = () => {
                                         >
                                             Status
                                         </th>
-                                        
+
                                         <th
                                             scope='col'
                                             className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'

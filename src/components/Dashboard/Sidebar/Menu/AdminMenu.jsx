@@ -6,16 +6,16 @@ const AdminMenu = () => {
     return (
         <>
             {/* Admin Dashboard */}
-            <MenuItem label='Admin Dashboard' address='/dashboard' icon={FaHome} />
+            <MenuItem label='Admin Dashboard' address='/dashboard/admin-home' icon={FaHome} />
 
             {/* Manage Users */}
             <MenuItem label='Manage Users' address='manage-users' icon={FaUserCog} />
 
             {/* Approved Premium */}
-            <MenuItem label={'Approved Premium'} address={'approved-premium'} icon={MdPreview} />
+            <MenuItem label='Approved Premium' address='approved-premium' icon={MdPreview} />
 
             {/* Approved Contact Request */}
-            <MenuItem label={'Approved Contact Request'} address={'approved-contact-request'} icon={MdContacts} />
+            <MenuItem label='Approved Contact Request' address='approved-contact-request' icon={MdContacts} />
         </>
     )
 }

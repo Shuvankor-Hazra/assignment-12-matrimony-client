@@ -11,6 +11,9 @@ import Details from "../../pages/Details/Details";
 import Profile from "../../pages/Dashboard/Common/Profile";
 import ManageUsers from "../../components/Dashboard/Admin/ManageUsers";
 import AdminDashboard from "../../components/Dashboard/Admin/AdminDashboard";
+import PrivateRoutes from "../PrivateRoute/PrivateRoute";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import GuestDashboard from "../../components/Dashboard/Guest/GuestDashboard";
 
 
 const router = createBrowserRouter([
@@ -40,19 +43,42 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <DashBoard />,
+        element:
+            <PrivateRoutes>
+                    <DashBoard />
+            </PrivateRoutes>,
         children: [
             {
-                index: true,
-                element: <AdminDashboard />
+                path: 'admin-home',
+                element:
+                    <PrivateRoutes>
+                        <AdminRoute>
+                            <AdminDashboard />
+                        </AdminRoute>
+                    </PrivateRoutes>
             },
             {
                 path: 'manage-users',
-                element: <ManageUsers />
+                element:
+                    <PrivateRoutes>
+                        <AdminRoute>
+                            <ManageUsers />
+                        </AdminRoute>
+                    </PrivateRoutes>
             },
             {
                 path: 'profile',
-                element: <Profile />
+                element:
+                    <PrivateRoutes>
+                        <Profile />
+                    </PrivateRoutes>
+            },
+            {
+                path: 'edit-biodata',
+                element:
+                    <PrivateRoutes>
+                            <GuestDashboard />
+                    </PrivateRoutes>
             },
         ]
     }

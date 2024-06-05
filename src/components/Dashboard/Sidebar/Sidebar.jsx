@@ -15,7 +15,7 @@ import ToggleBtn from '../../../shared/Buttons/ToggleBtn'
 const Sidebar = () => {
     const { logOut } = useAuth()
     const [isActive, setActive] = useState(false)
-    const [role, isLoading] = useRole();
+    const [role] = useRole();
     const [toggle, setToggle] = useState(true);
 
     // Sidebar Responsive Handler

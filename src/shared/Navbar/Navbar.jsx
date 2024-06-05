@@ -3,9 +3,12 @@ import logo from '../../../public/matrimonial.png';
 import useAuth from '../../hooks/useAuth';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import useRole from '../../hooks/useRole';
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
+    const [role] = useRole();
+    console.log(role);
 
     const handleLogOut = () => {
         try {
@@ -18,15 +21,15 @@ const Navbar = () => {
 
     const navItems = <>
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/bioDatas'>Biodatas</NavLink></li>
+        <li><NavLink to='/bioDatas'>Bio Datas</NavLink></li>
         <li><NavLink to='/aboutUs'>About Us</NavLink></li>
         <li><NavLink to='/contactUs'>Contact Us</NavLink></li>
         {
-            user && <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+            role==='admin' && <li><NavLink to='/dashboard/admin-home'>Dashboard</NavLink></li>
         }
-        {/* {
-            user && <li><NavLink to='/dashboard/userHome'>Dashboard</NavLink></li>
-        } */}
+        {
+            role==='guest' && <li><NavLink to='/dashboard/edit-biodata'>Dashboard</NavLink></li>
+        }
     </>
 
     return (
