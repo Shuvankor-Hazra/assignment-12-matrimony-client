@@ -13,7 +13,7 @@ import ManageUsers from "../../components/Dashboard/Admin/ManageUsers";
 import AdminDashboard from "../../components/Dashboard/Admin/AdminDashboard";
 import PrivateRoutes from "../PrivateRoute/PrivateRoute";
 import AdminRoute from "../AdminRoute/AdminRoute";
-import GuestDashboard from "../../components/Dashboard/Guest/GuestDashboard";
+import GuestDashboard from "../../components/Dashboard/Guest/EditBiodata";
 
 
 const router = createBrowserRouter([
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/details/:id',
-                element: <Details />,
+                element: <PrivateRoutes><Details /></PrivateRoutes>,
                 loader: ({ params }) => fetch(`http://localhost:9000/premiumMembers/${params.id}`)
             },
         ]
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         path: '/dashboard',
         element:
             <PrivateRoutes>
-                    <DashBoard />
+                <DashBoard />
             </PrivateRoutes>,
         children: [
             {
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
                 path: 'edit-biodata',
                 element:
                     <PrivateRoutes>
-                            <GuestDashboard />
+                        <GuestDashboard />
                     </PrivateRoutes>
             },
         ]
