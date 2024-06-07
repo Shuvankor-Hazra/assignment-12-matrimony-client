@@ -82,12 +82,21 @@ const router = createBrowserRouter([
                     </PrivateRoutes>
             },
             {
+                path: 'edit-biodata/:id',
+                element:
+                    <PrivateRoutes>
+                        <GuestDashboard />
+                    </PrivateRoutes>,
+                loader: ({ params }) => fetch(`http://localhost:9000/bioData/${params.id}`)
+            },
+            {
                 path: 'view-biodata',
                 element:
                     <PrivateRoutes>
                         <ViewBiodata />
                     </PrivateRoutes>
             },
+
         ]
     }
 ]);

@@ -6,6 +6,7 @@ import LoadingSpinner from "../../LoadingSpinner";
 import Swal from "sweetalert2";
 import { MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const ViewBiodata = () => {
 
@@ -86,8 +87,11 @@ const ViewBiodata = () => {
                                     <p><span className="text-xl font-playFair">Email:</span> {item.email}</p>
                                     <p><span className="text-xl font-playFair">Mobile Number:</span> {item.mobileNumber}</p>
                                     <div className="flex justify-between">
-                                        <button className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-5/12"><BiEdit /></button>
+
+                                        <Link to={`/dashboard/edit-biodata/${item._id}`} className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-5/12"><BiEdit /></Link>
+
                                         <button onClick={() => handleDeleteUser(item)} className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-5/12"><MdDelete /></button>
+
                                     </div>
                                     <button className="btn bg-slate-100 border-x-4 border-[#F99417] text-black uppercase w-full">Make biodata to premium</button>
                                 </div>

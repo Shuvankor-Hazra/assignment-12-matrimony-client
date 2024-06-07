@@ -8,6 +8,7 @@ import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -18,9 +19,12 @@ const EditBiodata = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const axiosCommon = useAxiosCommon();
     const axiosSecure = useAxiosSecure();
+    const item = useLoaderData();
+    const navigate = useNavigate();
+    // const from = location.state?.from?.pathname || "/";
 
     const onSubmit = async (data) => {
-        console.log(data)
+        // console.log(data)
         // image upload to imgBB and then get an url
         const imageFile = { image: data.image[0] };
         const res = await axiosCommon.post(image_hosting_api, imageFile, {
@@ -54,6 +58,17 @@ const EditBiodata = () => {
             // 
             const bioDataRes = await axiosSecure.put('/bioData', bioData);
             console.log(bioDataRes.data);
+            if (bioDataRes.data.modifiedCount > 0) {
+                // show success popup
+                reset();
+                Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: `${data.name} biodata is updated`,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
             if (bioDataRes.data.upsertedCount > 0) {
                 // show success popup
                 reset();
@@ -66,7 +81,6 @@ const EditBiodata = () => {
                 });
             }
         }
-        console.log('with image url', res.data);
     };
     return (
         <>
@@ -82,8 +96,9 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600'
                                 htmlFor='gender'>Biodata Type(Gender)</label>
                             <select {...register("gender", { required: true })}
+                                defaultValue={item?.gender || ''}
                                 className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Gender</option>
+                                <option disabled value={''}>Gender</option>
                                 <option value="female">Female</option>
                                 <option value="male">Male</option>
                             </select>
@@ -94,6 +109,7 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='name'>Name</label>
                             <input
+                                defaultValue={item?.name}
                                 type='text'
                                 placeholder="Name"
                                 {...register("name", { required: true })}
@@ -107,6 +123,7 @@ const EditBiodata = () => {
                                 htmlFor='name'>Profile Image</label>
                             <div className="form-control w-full">
                                 <input {...register('image', { required: true })}
+                                    // defaultValue={}
                                     type="file"
                                     className="file-input file-input-bordered w-full" />
                             </div>
@@ -118,6 +135,7 @@ const EditBiodata = () => {
                                 htmlFor='name'>Date of birth</label>
                             <div className="form-control w-full">
                                 <input {...register("dateOfBirth", { required: true })}
+                                    defaultValue={item?.dateOfBirth}
                                     type="date"
                                     className='input input-bordered w-full focus:outline-none' />
                             </div>
@@ -128,7 +146,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='name'>Height</label>
                             <select {...register("height")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Height</option>
+                                defaultValue={item?.height || ''}
+                                <option disabled value={''}>Height</option>
                                 {heightJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
                             {errors.height && <span className="text-warning font-medium">Name is required</span>}
@@ -138,7 +157,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='name'>Weight</label>
                             <select {...register("weight")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Weight</option>
+                                defaultValue={item?.weight || ''}
+                                <option disabled value={''}>Weight</option>
                                 {weightJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
                             {errors.weight && <span className="text-warning font-medium">Name is required</span>}
@@ -147,8 +167,10 @@ const EditBiodata = () => {
                         <div className=''>
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='age'>Age</label>
-                            <select {...register("age")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Age</option>
+                            <select {...register("age")}
+                                defaultValue={item?.age || ''}
+                                className="select select-bordered w-full focus:outline-none">
+                                <option disabled value={''}>Age</option>
                                 {ageJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
                             {errors.age && <span className="text-warning font-medium">Name is required</span>}
@@ -158,7 +180,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600'
                                 htmlFor='Occupation'>Occupation</label>
                             <select {...register("occupation")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Occupation</option>
+                                defaultValue={item?.occupation || ''}
+                                <option disabled value={''}>Occupation</option>
                                 <option value="student">Student</option>
                                 <option value="job">Job</option>
                                 <option value="houseWife">Housewife</option>
@@ -171,7 +194,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600'
                                 htmlFor='race'>Race</label>
                             <select {...register("race")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Race</option>
+                                defaultValue={item?.race || ''}
+                                <option disabled value={''}>Race</option>
                                 <option value="bengali">Bengali</option>
                                 <option value="chakma">Chakma</option>
                                 <option value="rohingya">Rohingya</option>
@@ -188,6 +212,7 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='fathersName'>Fathers name</label>
                             <input
+                                defaultValue={item?.fathersName}
                                 type='text'
                                 placeholder="Fathers Name"
                                 {...register("fathersName", { required: true })}
@@ -200,6 +225,7 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='mothersName'>Mothers Name</label>
                             <input
+                                defaultValue={item?.mothersName}
                                 type='text'
                                 placeholder="Mothers Name"
                                 {...register("mothersName", { required: true })}
@@ -212,7 +238,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600'
                                 htmlFor='permanentDivision'>Permanent Division name</label>
                             <select {...register("permanentDivision")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Permanent Division name</option>
+                                defaultValue={item?.permanentDivision || ''}
+                                <option disabled value={''}>Permanent Division name</option>
                                 <option value="dhaka">Dhaka</option>
                                 <option value="chittagong">Chittagong</option>
                                 <option value="rajshahi">Rajshahi</option>
@@ -229,7 +256,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600'
                                 htmlFor='presentDivision'>Present Division name</label>
                             <select {...register("presentDivision")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Present Division name</option>
+                                defaultValue={item?.presentDivision || ''}
+                                <option disabled value={''}>Present Division name</option>
                                 <option value="dhaka">Dhaka</option>
                                 <option value="chittagong">Chittagong</option>
                                 <option value="rajshahi">Rajshahi</option>
@@ -246,7 +274,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='expectedPartnerAge'>Expected Partner Age</label>
                             <select {...register("expectedPartnerAge")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Expected Partner Age</option>
+                                defaultValue={item?.expectedPartnerAge || ''}
+                                <option disabled value={''}>Expected Partner Age</option>
                                 {ageJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
                             {errors.expectedPartnerAge && <span className="text-warning font-medium">Name is required</span>}
@@ -256,7 +285,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='expectedPartnerHeight'>Expected Partner Height</label>
                             <select {...register("expectedPartnerHeight")} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Expected Partner Height</option>
+                                defaultValue={item?.expectedPartnerHeight || ''}
+                                <option disabled value={''}>Expected Partner Height</option>
                                 {heightJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
                             {errors.expectedPartnerHeight && <span className="text-warning font-medium">Name is required</span>}
@@ -266,7 +296,8 @@ const EditBiodata = () => {
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='expectedPartnerWeight'>Expected Partner Weight</label>
                             <select {...register("expectedPartnerWeight", { required: true })} className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Expected Partner Weight</option>
+                                defaultValue={item?.expectedPartnerWeight || ''}
+                                <option disabled value={''}>Expected Partner Weight</option>
                                 {weightJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
                             {errors.expectedPartnerWeight && <span className="text-warning font-medium">Name is required</span>}
@@ -290,6 +321,7 @@ const EditBiodata = () => {
                             <label className='block pb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='mobileNumber'>Mobile Number</label>
                             <input
+                                defaultValue={item?.mobileNumber}
                                 type='number'
                                 required
                                 placeholder="Mobile Number"
