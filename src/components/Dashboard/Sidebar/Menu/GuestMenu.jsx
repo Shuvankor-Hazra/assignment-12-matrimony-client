@@ -10,9 +10,7 @@ const GuestMenu = () => {
         <div>
             {/* Normal User Dashboard */}
             <MenuItem label={'Edit Biodata'} address={'/dashboard/edit-biodata'} icon={FaDatabase} />
-            {/* Normal User Dashboard */}
-            {/* <MenuItem label={'Edit Biodata'} address={'edit-biodata'} icon={FaDatabase} /> */}
-
+            
             {/* View Biodata */}
             <MenuItem label={'View Biodata'} address={'view-biodata'} icon={BsViewList} />
 

@@ -6,9 +6,9 @@ const Details = () => {
     console.log(data);
     return (
         <div className="pt-40 max-w-screen-xl mx-auto">
-            <div className="flex gap-8 rounded-xl border">
+            <div className="flex gap-8 rounded-xl border-2">
                 <div className="w-1/3">
-                    <img className="w-full" src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" alt="Movie" />
+                    <img className="w-full rounded-s-lg" src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" alt="Movie" />
                 </div>
                 <div className="px-6 py-4">
                             <h1 className="text-xl font-semibold text-gray-800 dark:text-white">{data.Biodata_Type}</h1>

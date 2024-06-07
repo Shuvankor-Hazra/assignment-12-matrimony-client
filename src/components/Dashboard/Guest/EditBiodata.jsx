@@ -3,15 +3,74 @@ import SectionTitle from "../../SectionTitle/SectionTitle";
 import weightJson from '../../../../public/weight.json'
 import heightJson from '../../../../public/height.json'
 import ageJson from '../../../../public/age.json'
+import { Helmet } from "react-helmet-async";
+import useAxiosCommon from "../../../hooks/useAxiosCommon";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
 
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const EditBiodata = () => {
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => {
+    const { user } = useAuth();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const axiosCommon = useAxiosCommon();
+    const axiosSecure = useAxiosSecure();
+
+    const onSubmit = async (data) => {
         console.log(data)
+        // image upload to imgBB and then get an url
+        const imageFile = { image: data.image[0] };
+        const res = await axiosCommon.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+        if (res.data.success) {
+            // now send the menu item data to the server with the image url
+            const bioData = {
+                gender: data.gender,
+                name: data.name,
+                image: res.data.data.display_url,
+                dateOfBirth: data.dateOfBirth,
+                height: data.height,
+                weight: data.weight,
+                age: data.age,
+                occupation: data.occupation,
+                race: data.race,
+                fathersName: data.fathersName,
+                mothersName: data.mothersName,
+                permanentDivision: data.permanentDivision,
+                presentDivision: data.presentDivision,
+                expectedPartnerAge: data.expectedPartnerAge,
+                expectedPartnerHeight: data.expectedPartnerHeight,
+                expectedPartnerWeight: data.expectedPartnerWeight,
+                email: data.email,
+                mobileNumber: data.mobileNumber,
+            }
+
+            // 
+            const bioDataRes = await axiosSecure.put('/bioData', bioData);
+            console.log(bioDataRes.data);
+            if (bioDataRes.data.upsertedCount > 0) {
+                // show success popup
+                reset();
+                Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: `${data.name} biodata is added to server`,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        }
+        console.log('with image url', res.data);
     };
     return (
         <>
+            <Helmet title="Shaddi.com | Edit Biodata" />
             <div>
                 <SectionTitle subHeading={'Add with us'} heading={'Create or Update Biodata'} />
             </div>
@@ -21,12 +80,14 @@ const EditBiodata = () => {
 
                         <div className=''>
                             <label className='block mb-2 text-sm font-medium text-gray-600'
-                                htmlFor='name'>Biodata Type(Gender)</label>
-                            <select {...register("gender")} className="select select-bordered w-full focus:outline-none">
+                                htmlFor='gender'>Biodata Type(Gender)</label>
+                            <select {...register("gender", { required: true })}
+                                className="select select-bordered w-full focus:outline-none">
                                 <option disabled selected>Biodata Type</option>
                                 <option value="female">Female</option>
                                 <option value="male">Male</option>
                             </select>
+                            {errors.gender && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -38,6 +99,7 @@ const EditBiodata = () => {
                                 {...register("name", { required: true })}
                                 className='input input-bordered w-full focus:outline-none'
                             />
+                            {errors.name && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className="">
@@ -48,16 +110,18 @@ const EditBiodata = () => {
                                     type="file"
                                     className="file-input file-input-bordered w-full" />
                             </div>
+                            {errors.image && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className="">
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='name'>Date of birth</label>
                             <div className="form-control w-full">
-                                <input {...register("name", { required: true })}
+                                <input {...register("dateOfBirth", { required: true })}
                                     type="date"
                                     className='input input-bordered w-full focus:outline-none' />
                             </div>
+                            {errors.dateOfBirth && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -67,15 +131,17 @@ const EditBiodata = () => {
                                 <option disabled selected>Height</option>
                                 {heightJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
+                            {errors.height && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='name'>Weight</label>
-                            <select {...register("Weight")} className="select select-bordered w-full focus:outline-none">
+                            <select {...register("weight")} className="select select-bordered w-full focus:outline-none">
                                 <option disabled selected>Weight</option>
                                 {weightJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
+                            {errors.weight && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -85,6 +151,7 @@ const EditBiodata = () => {
                                 <option disabled selected>Age</option>
                                 {ageJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
+                            {errors.age && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -97,11 +164,12 @@ const EditBiodata = () => {
                                 <option value="houseWife">Housewife</option>
                                 <option value="business">Business</option>
                             </select>
+                            {errors.occupation && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
                             <label className='block mb-2 text-sm font-medium text-gray-600'
-                                htmlFor='Occupation'>Race</label>
+                                htmlFor='race'>Race</label>
                             <select {...register("race")} className="select select-bordered w-full focus:outline-none">
                                 <option disabled selected>Race</option>
                                 <option value="bengali">Bengali</option>
@@ -113,6 +181,7 @@ const EditBiodata = () => {
                                 <option value="khasi">Khasi</option>
                                 <option value="others">Others</option>
                             </select>
+                            {errors.race && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -124,6 +193,7 @@ const EditBiodata = () => {
                                 {...register("fathersName", { required: true })}
                                 className='input input-bordered w-full focus:outline-none'
                             />
+                            {errors.fathersName && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -135,6 +205,7 @@ const EditBiodata = () => {
                                 {...register("mothersName", { required: true })}
                                 className='input input-bordered w-full focus:outline-none'
                             />
+                            {errors.mothersName && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -151,11 +222,12 @@ const EditBiodata = () => {
                                 <option value="mymensingh">Mymensingh</option>
                                 <option value="sylhet">Sylhet</option>
                             </select>
+                            {errors.permanentDivision && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
                             <label className='block mb-2 text-sm font-medium text-gray-600'
-                                htmlFor='permanentDivision'>Present Division name</label>
+                                htmlFor='presentDivision'>Present Division name</label>
                             <select {...register("presentDivision")} className="select select-bordered w-full focus:outline-none">
                                 <option disabled selected>Present Division name</option>
                                 <option value="dhaka">Dhaka</option>
@@ -167,6 +239,7 @@ const EditBiodata = () => {
                                 <option value="mymensingh">Mymensingh</option>
                                 <option value="sylhet">Sylhet</option>
                             </select>
+                            {errors.presentDivision && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -176,6 +249,7 @@ const EditBiodata = () => {
                                 <option disabled selected>Expected Partner Age</option>
                                 {ageJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
+                            {errors.expectedPartnerAge && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
@@ -185,42 +259,49 @@ const EditBiodata = () => {
                                 <option disabled selected>Expected Partner Height</option>
                                 {heightJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
+                            {errors.expectedPartnerHeight && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='expectedPartnerWeight'>Expected Partner Weight</label>
-                            <select {...register("expectedPartnerWeight")} className="select select-bordered w-full focus:outline-none">
+                            <select {...register("expectedPartnerWeight", { required: true })} className="select select-bordered w-full focus:outline-none">
                                 <option disabled selected>Expected Partner Weight</option>
                                 {weightJson.map((item, idx) => <option key={idx} value={item.value}>{item.text}</option>)}
                             </select>
+                            {errors.expectedPartnerWeight && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
                             <label className='block mb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='email'>Contact Email</label>
                             <input
+                                defaultValue={user.email}
+                                readOnly
                                 type='email'
                                 placeholder="Contact Email"
                                 {...register("email", { required: true })}
                                 className='input input-bordered w-full focus:outline-none'
                             />
+                            {errors.email && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                         <div className=''>
-                            <label className='block mb-2 text-sm font-medium text-gray-600 '
+                            <label className='block pb-2 text-sm font-medium text-gray-600 '
                                 htmlFor='mobileNumber'>Mobile Number</label>
                             <input
                                 type='number'
+                                required
                                 placeholder="Mobile Number"
                                 {...register("mobileNumber", { required: true })}
                                 className='input input-bordered w-full focus:outline-none'
                             />
+                            {errors.mobileNumber && <span className="text-warning font-medium">Name is required</span>}
                         </div>
 
                     </div>
-                    <div className="flex justify-center mt-5">
-                        <input className="btn " type="submit" />
+                    <div className="flex justify-center mt-8">
+                        <button className="btn w-full" type="submit">Save And Publish Now</button>
                     </div>
                 </form>
             </div>

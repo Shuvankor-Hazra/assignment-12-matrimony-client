@@ -45,7 +45,6 @@ const Sidebar = () => {
                         </Link>
                     </div>
                 </div>
-
                 <button
                     onClick={handleToggle}
                     className='mobile-menu-button p-4 focus:outline-none focus:bg-gray-200'
@@ -61,16 +60,16 @@ const Sidebar = () => {
             >
                 <div>
                     <div>
-                        <div className='w-full hidden md:flex px-4 py-4 shadow-lg rounded-lg justify-center items-center bg-[#f99417] mx-auto'>
+                        <div className='w-full hidden md:flex px-4 py-4 shadow-lg rounded-lg justify-center items-center bg-base-300 mx-auto'>
                             <Link to='/' className='flex items-center gap-3'>
                                 <img
                                     // className='hidden md:block'
-                                    className='rounded-full border-2 border-black'
+                                    className='rounded-full border-4 border-[#f99417]'
                                     src={logo} alt='logo'
                                     width='60'
                                     height='60'
                                 />
-                                <h2 className='text-xl font-bold'>Shaddi.com</h2>
+                                <h2 className='text-xl font-bold text-black'>Shaddi.com</h2>
                             </Link>
                         </div>
                     </div>

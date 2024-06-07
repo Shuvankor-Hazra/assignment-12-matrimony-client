@@ -14,6 +14,7 @@ import AdminDashboard from "../../components/Dashboard/Admin/AdminDashboard";
 import PrivateRoutes from "../PrivateRoute/PrivateRoute";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import GuestDashboard from "../../components/Dashboard/Guest/EditBiodata";
+import ViewBiodata from "../../components/Dashboard/Guest/ViewBiodata";
 
 
 const router = createBrowserRouter([
@@ -78,6 +79,13 @@ const router = createBrowserRouter([
                 element:
                     <PrivateRoutes>
                         <GuestDashboard />
+                    </PrivateRoutes>
+            },
+            {
+                path: 'view-biodata',
+                element:
+                    <PrivateRoutes>
+                        <ViewBiodata />
                     </PrivateRoutes>
             },
         ]
