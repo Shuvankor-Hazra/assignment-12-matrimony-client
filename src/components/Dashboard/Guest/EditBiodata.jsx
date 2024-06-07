@@ -83,7 +83,7 @@ const EditBiodata = () => {
                                 htmlFor='gender'>Biodata Type(Gender)</label>
                             <select {...register("gender", { required: true })}
                                 className="select select-bordered w-full focus:outline-none">
-                                <option disabled selected>Biodata Type</option>
+                                <option disabled selected>Gender</option>
                                 <option value="female">Female</option>
                                 <option value="male">Male</option>
                             </select>

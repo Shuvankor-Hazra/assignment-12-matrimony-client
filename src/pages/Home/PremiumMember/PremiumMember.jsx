@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const PremiumMember = () => {
     const axiosSecure = useAxiosSecure();
-    
+
 
     const { data, isLoading } = useQuery({
         queryKey: ['premiumMembers'],
@@ -16,9 +17,7 @@ const PremiumMember = () => {
     });
 
     console.log(data);
-    if (isLoading) return <div className="flex justify-center min-h-[500px]">
-        <span className="loading loading-infinity w-16 text-[#BB8506]" />
-    </div>
+    if (isLoading) return <LoadingSpinner />
 
     return (
         <div className="my-20">
