@@ -5,7 +5,6 @@ import heightJson from '../../../../public/height.json'
 import ageJson from '../../../../public/age.json'
 import { Helmet } from "react-helmet-async";
 import useAxiosCommon from "../../../hooks/useAxiosCommon";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -18,7 +17,6 @@ const EditBiodata = () => {
     const { user } = useAuth();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const axiosCommon = useAxiosCommon();
-    const axiosSecure = useAxiosSecure();
     const item = useLoaderData();
     const navigate = useNavigate();
     // const from = location.state?.from?.pathname || "/";
@@ -56,20 +54,9 @@ const EditBiodata = () => {
             }
 
             // 
-            const bioDataRes = await axiosSecure.put('/bioData', bioData);
+            const bioDataRes = await axiosCommon.post('/bioData', bioData);
             console.log(bioDataRes.data);
-            if (bioDataRes.data.modifiedCount > 0) {
-                // show success popup
-                reset();
-                Swal.fire({
-                    position: "top",
-                    icon: "success",
-                    title: `${data.name} biodata is updated`,
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-            }
-            if (bioDataRes.data.upsertedCount > 0) {
+            if (bioDataRes.data.insertedId) {
                 // show success popup
                 reset();
                 Swal.fire({
@@ -79,6 +66,7 @@ const EditBiodata = () => {
                     showConfirmButton: false,
                     timer: 2000
                 });
+                navigate('/dashboard/view-biodata')
             }
         }
     };
@@ -322,7 +310,7 @@ const EditBiodata = () => {
                                 htmlFor='mobileNumber'>Mobile Number</label>
                             <input
                                 defaultValue={item?.mobileNumber}
-                                type='number'
+                                type='tel'
                                 required
                                 placeholder="Mobile Number"
                                 {...register("mobileNumber", { required: true })}

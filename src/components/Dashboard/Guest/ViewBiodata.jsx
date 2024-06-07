@@ -5,7 +5,7 @@ import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import LoadingSpinner from "../../LoadingSpinner";
 import Swal from "sweetalert2";
 import { MdDelete } from "react-icons/md";
-import { BiEdit } from "react-icons/bi";
+import { BiAddToQueue} from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const ViewBiodata = () => {
@@ -61,11 +61,11 @@ const ViewBiodata = () => {
             <div>
                 {
                     biodata.map(item => <div key={item._id} >
-                        <div className="flex gap-5 rounded-xl border-2 my-10">
-                            <div className="w-1/3">
+                        <div className="lg:flex gap-5 rounded-xl border-2 my-10 p-2 lg:p-0">
+                            <div className="lg:w-1/3 ">
                                 <img className="w-full rounded-s-xl" src={item.image} alt="user" />
                             </div>
-                            <div className="w-full flex items-center justify-around py-3 text-xl font-semibold text-gray-800 text-poppins">
+                            <div className="w-full lg:flex items-center justify-around py-3 text-xl font-semibold text-gray-800 text-poppins sm:text-center">
                                 <div className="space-y-2">
                                     <p className="capitalize"><span className="font-semibold text-xl font-playFair">Gender:</span> {item.gender}</p>
                                     <p className="capitalize"><span className="font-semibold text-xl font-playFair">Name:</span> {item.name}</p>
@@ -86,14 +86,14 @@ const ViewBiodata = () => {
                                     <p><span className="text-xl font-playFair">Expected Partner Weight:</span> {item.expectedPartnerWeight}</p>
                                     <p><span className="text-xl font-playFair">Email:</span> {item.email}</p>
                                     <p><span className="text-xl font-playFair">Mobile Number:</span> {item.mobileNumber}</p>
-                                    <div className="flex justify-between">
+                                    <div className="flex justify-between py-2">
 
-                                        <Link to={`/dashboard/edit-biodata/${item._id}`} className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-5/12"><BiEdit /></Link>
+                                        <Link to={`/dashboard/edit-biodata`} className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-5/12"><BiAddToQueue /></Link>
 
                                         <button onClick={() => handleDeleteUser(item)} className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-5/12"><MdDelete /></button>
 
                                     </div>
-                                    <button className="btn bg-slate-100 border-x-4 border-[#F99417] text-black uppercase w-full">Make biodata to premium</button>
+                                    <button className="btn bg-slate-100 border-x-4 border-[#F99417] text-black uppercase w-full py-2">Make biodata to premium</button>
                                 </div>
                             </div>
                         </div>
