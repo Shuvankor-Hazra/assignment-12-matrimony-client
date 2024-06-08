@@ -9,7 +9,7 @@ const Footer = () => {
                     <div className="w-full -mx-6 lg:w-2/5">
                         <div className="px-6">
                             <a href="#" className='flex items-center text-2xl font-bold'>
-                                <img className="w-auto h-16 rounded-full" src={logo} alt="" />
+                                <img className="w-auto h-16 border-4 mr-2 border-[#F99417] rounded-full" src={logo} alt="" />
                                 Shaadi.com
                             </a>
 

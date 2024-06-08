@@ -9,8 +9,8 @@ const ManageUsers = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const { data } = await axiosSecure(`/users`)
-            return data;
+            const res = await axiosSecure.get(`/users`)
+            return res.data;
         }
     })
     if (isLoading) return <LoadingSpinner />
@@ -53,7 +53,7 @@ const ManageUsers = () => {
                                             Role
                                         </th>
 
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>

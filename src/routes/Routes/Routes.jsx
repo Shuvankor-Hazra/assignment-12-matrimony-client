@@ -15,6 +15,7 @@ import PrivateRoutes from "../PrivateRoute/PrivateRoute";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import GuestDashboard from "../../components/Dashboard/Guest/EditBiodata";
 import ViewBiodata from "../../components/Dashboard/Guest/ViewBiodata";
+import AllBiodata from "../../pages/AllBiodata/AllBiodata";
 
 
 const router = createBrowserRouter([
@@ -39,6 +40,13 @@ const router = createBrowserRouter([
                 path: '/details/:id',
                 element: <PrivateRoutes><Details /></PrivateRoutes>,
                 loader: ({ params }) => fetch(`http://localhost:9000/premiumMembers/${params.id}`)
+            },
+            {
+                path: 'allBiodata',
+                element:
+                    <PrivateRoutes>
+                        <AllBiodata />
+                    </PrivateRoutes>
             },
         ]
     },
@@ -96,6 +104,7 @@ const router = createBrowserRouter([
                         <ViewBiodata />
                     </PrivateRoutes>
             },
+
 
         ]
     }

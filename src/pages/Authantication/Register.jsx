@@ -7,44 +7,45 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const Registration = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const { user, setUser,
+    const { user,
+        setUser,
+        loading,
+        setLoading,
         createUser,
         signInWithGoogle,
         updateUserProfile, } = useAuth();
 
     // email password registration
-    const onSubmit = (data) => {
-        // console.log(data)
-        createUser(data.email, data.password)
-            .then(result => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
-                updateUserProfile(data.name, data.photoURL)
-                    .then(() => {
-                        setUser({ ...user, photoURL: data.photoURL, displayName: data.name })
-                        reset();
-                        navigate(from, { replace: true })
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "Sign Up Successful",
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                    })
-            }).catch(error => {
-                console.log(error);
-                toast.error(error.message)
-            })
+    const onSubmit = async (data) => {
+        try {
+            await createUser(data.email, data.password)
+            await updateUserProfile(data.name, data.photoURL);
+            await setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Sign Up Successful",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            reset();
+            navigate(from, { replace: true });
+            setLoading(false);
+        } catch (err) {
+            toast.error(err.message)
+            setLoading(false);
+        }
     }
 
-    // google login
+    //  google login
+
     const handleGoogleSignIn = async () => {
         try {
             await signInWithGoogle();
@@ -56,11 +57,14 @@ const Registration = () => {
                 timer: 2000
             });
             navigate(from, { replace: true });
+            setLoading(false);
         } catch (err) {
-            console.log(err);
             toast.error(err?.message);
+            setLoading(false);
         }
     }
+
+    if (loading) return <LoadingSpinner />
 
     return (
         <>

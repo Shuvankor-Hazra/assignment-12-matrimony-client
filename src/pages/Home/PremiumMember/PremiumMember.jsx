@@ -1,44 +1,42 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import useAxiosCommon from "../../../hooks/useAxiosCommon";
 
 const PremiumMember = () => {
-    const axiosSecure = useAxiosSecure();
-
-
+    const axiosCommon = useAxiosCommon();
     const { data, isLoading } = useQuery({
         queryKey: ['premiumMembers'],
         queryFn: async () => {
-            const { data } = await axiosSecure.get('/premiumMembers')
+            const { data } = await axiosCommon.get('/premiumMembers')
             console.log(data);
             return data;
         }
     });
-
     console.log(data);
     if (isLoading) return <LoadingSpinner />
 
     return (
         <div className="my-20">
             <div className="text-center mb-20">
-                <h2 className="text-3xl font-semibold">Our Premium Members</h2>
+                <SectionTitle heading={'Our Premium Members'} subHeading={'Make premium'}/>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 ">
                 {
                     data.map(item => <div key={item._id} className="w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 ">
-                        <img className="object-cover object-center w-full h-56 " src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="avatar" />
-                        <div className="px-6 py-4">
-                            <h1 className="text-xl font-semibold text-gray-800 dark:text-white">{item.Biodata_Type}</h1>
+                        <img className="object-cover object-center w-full h-80 " src={item.image} alt="avatar" />
+                        <div className="px-6 py-4 text-xl">
+                            <h1 className="text-xl font-semibold text-gray-800 dark:text-white capitalize">{item.gender}</h1>
                             <p className="py-2 text-gray-700 dark:text-gray-400">ID: {item._id}</p>
                             <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                                <h1 className="px-2 text-sm">Age: {item.Age}</h1>
+                                <p className="px-2 text-sm">Age: {item.age}</p>
                             </div>
                             <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                                <h1 className="px-2 text-sm">Division: {item.Permanent_Division_Name}</h1>
+                                <p className="px-2 text-sm">Division: {item.permanentDivision}</p>
                             </div>
                             <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                                <h1 className="px-2 text-sm">Occupation: {item.Occupation}</h1>
+                                <p className="px-2 text-sm">Occupation: {item.occupation}</p>
                             </div>
                             <div className="my-3">
                                 <Link to={`/details/${item._id}`} className="btn w-full">

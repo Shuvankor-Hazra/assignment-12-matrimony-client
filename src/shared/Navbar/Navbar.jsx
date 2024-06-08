@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import logo from '../../../public/matrimonial.png';
+import logo from '../../assets/matrimonial.png';
 import useAuth from '../../hooks/useAuth';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import useRole from '../../hooks/useRole';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Navbar = () => {
-    const { user, logOut } = useAuth();
+    const { user, logOut, loading, } = useAuth();
     const [role] = useRole();
     console.log(role);
 
@@ -21,16 +22,17 @@ const Navbar = () => {
 
     const navItems = <>
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/bioDatas'>Bio Datas</NavLink></li>
+        <li><NavLink to='/allBiodata'>All Biodata</NavLink></li>
         <li><NavLink to='/aboutUs'>About Us</NavLink></li>
         <li><NavLink to='/contactUs'>Contact Us</NavLink></li>
-        {
-            role==='admin' && <li><NavLink to='/dashboard/admin-home'>Dashboard</NavLink></li>
-        }
-        {
-            role==='guest' && <li><NavLink to='/dashboard/edit-biodata'>Dashboard</NavLink></li>
+        {user ?
+            role === 'admin' && <li><NavLink to='/dashboard/admin-home'>Dashboard</NavLink></li>
+            :
+            role === 'guest' && <li><NavLink to='/dashboard/edit-biodata'>Dashboard</NavLink></li>
         }
     </>
+
+    if (loading) return <LoadingSpinner />
 
     return (
         <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white py-5 px-10">
