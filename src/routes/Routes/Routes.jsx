@@ -16,6 +16,8 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import GuestDashboard from "../../components/Dashboard/Guest/EditBiodata";
 import ViewBiodata from "../../components/Dashboard/Guest/ViewBiodata";
 import AllBiodata from "../../pages/AllBiodata/AllBiodata";
+import AboutUs from "../../pages/AboutUs/AboutUs";
+import ContactUs from "../../pages/ContactUs/ContactUs";
 
 
 const router = createBrowserRouter([
@@ -42,11 +44,16 @@ const router = createBrowserRouter([
                 loader: ({ params }) => fetch(`http://localhost:9000/premiumMembers/${params.id}`)
             },
             {
-                path: 'allBiodata',
-                element:
-                    <PrivateRoutes>
-                        <AllBiodata />
-                    </PrivateRoutes>
+                path: '/allBiodata',
+                element: <AllBiodata />
+            },
+            {
+                path: '/aboutUs',
+                element: <AboutUs />
+            },
+            {
+                path: '/contactUs',
+                element: <ContactUs />
             },
         ]
     },

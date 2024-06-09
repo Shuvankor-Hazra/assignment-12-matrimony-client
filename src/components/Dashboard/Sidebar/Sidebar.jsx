@@ -5,7 +5,7 @@ import { FcSettings } from 'react-icons/fc'
 import { AiOutlineBars } from 'react-icons/ai'
 import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
-import logo from '../../../../public/matrimonial.png';
+import logo from '../../../assets/matrimonial.png';
 import useRole from '../../../hooks/useRole'
 import MenuItem from './Menu/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
@@ -15,7 +15,7 @@ import ToggleBtn from '../../../shared/Buttons/ToggleBtn'
 const Sidebar = () => {
     const { logOut } = useAuth()
     const [isActive, setActive] = useState(false)
-    const [role] = useRole();
+    const [isAdmin] = useRole();
     const [toggle, setToggle] = useState(true);
 
     // Sidebar Responsive Handler
@@ -77,11 +77,11 @@ const Sidebar = () => {
                     {/* Nav Items */}
                     <div className='flex flex-col justify-between flex-1 mt-6'>
                         {/* Conditional toggle button here.. */}
-                        {role === 'admin' && <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />}
+                        {isAdmin==='admin' && <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />}
                         {/*  Menu Items */}
                         <nav>
-                            {role === 'admin' ? toggle ? <AdminMenu /> : <GuestMenu /> : undefined}
-                            {role === 'guest' && <GuestMenu />}
+                            {isAdmin==='admin' ? toggle ? <AdminMenu /> : <GuestMenu /> : undefined}
+                            {isAdmin==='guest' && <GuestMenu />}
                         </nav>
                     </div>
                 </div>

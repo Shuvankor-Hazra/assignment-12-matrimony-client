@@ -2,14 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import useAxiosCommon from "../../../hooks/useAxiosCommon";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const PremiumMember = () => {
-    const axiosCommon = useAxiosCommon();
+    const axiosSecure = useAxiosSecure();
     const { data, isLoading } = useQuery({
         queryKey: ['premiumMembers'],
         queryFn: async () => {
-            const { data } = await axiosCommon.get('/premiumMembers')
+            const { data } = await axiosSecure.get('/premiumMembers')
             console.log(data);
             return data;
         }

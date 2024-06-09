@@ -6,7 +6,7 @@ import bg from '../../../assets/yellow-backgroun.jpg';
 
 const Profile = () => {
     const { user, loading } = useAuth() || {};
-    const [role, isLoading] = useRole();
+    const [isAdmin, isLoading] = useRole();
     console.log(user);
 
     if (isLoading || loading) return <LoadingSpinner />
@@ -32,7 +32,7 @@ const Profile = () => {
                     </a>
 
                     <p className='p-2 px-4 mt-3 text-sm text-black bg-[#f99417] rounded-full capitalize'>
-                        {role}
+                        {isAdmin}
                     </p>
                     <p className='mt-3 text-xl font-medium text-gray-800 underline '>
                         User Id: {user?.uid}

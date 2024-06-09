@@ -1,5 +1,5 @@
 import { FaFacebook, FaGithub, FaInstagram } from 'react-icons/fa6';
-import logo from '../../../public/matrimonial.png';
+import logo from '../../assets/matrimonial.png';
 
 const Footer = () => {
     return (

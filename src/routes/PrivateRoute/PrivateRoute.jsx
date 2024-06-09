@@ -8,7 +8,7 @@ const PrivateRoutes = ({ children }) => {
     const { user, loading } = useAuth();
     const location = useLocation();
 
-    if (loading) return <LoadingSpinner />
+    if (loading || !user) return <LoadingSpinner />
 
     if (user) {
         return children;

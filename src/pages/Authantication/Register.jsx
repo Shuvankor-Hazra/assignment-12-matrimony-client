@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import logo from '../../../public/matrimonial.png';
+import logo from '../../assets/matrimonial.png';
 import registerImg from '../../assets/register.jpg';
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
@@ -24,10 +24,11 @@ const Registration = () => {
 
     // email password registration
     const onSubmit = async (data) => {
+        console.log(data);
         try {
             await createUser(data.email, data.password)
             await updateUserProfile(data.name, data.photoURL);
-            await setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
+            setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
             Swal.fire({
                 position: "center",
                 icon: "success",

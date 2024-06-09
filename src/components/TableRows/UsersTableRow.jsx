@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types'
+/* eslint-disable react/prop-types */
+
 import { useState } from 'react'
 import UpdateUserModal from '../Modal/UpdateUserModal';
 import { useMutation } from '@tanstack/react-query';
@@ -88,9 +89,5 @@ const UsersTableRow = ({ user, refetch }) => {
     )
 }
 
-UsersTableRow.propTypes = {
-    user: PropTypes.object,
-    refetch: PropTypes.func,
-}
 
 export default UsersTableRow

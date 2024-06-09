@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import loginImg from '../../assets/login.jpg';
-import logo from '../../../public/matrimonial.png';
+import logo from '../../assets/matrimonial.png';
 import { FaGoogle } from "react-icons/fa6";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/useAuth";
@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 const Login = () => {
-    const { signIn, signInWithGoogle } = useAuth();
+    const { signIn, setLoading, signInWithGoogle } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -40,6 +40,7 @@ const Login = () => {
 
     // google login
     const handleGoogleSignIn = async () => {
+        setLoading(false)
         try {
             await signInWithGoogle();
             Swal.fire({
@@ -55,7 +56,6 @@ const Login = () => {
             toast.error(err?.message);
         }
     }
-
     return (
         <>
             <Helmet>
