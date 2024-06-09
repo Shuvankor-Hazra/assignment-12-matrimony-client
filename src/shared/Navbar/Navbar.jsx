@@ -70,9 +70,9 @@ const Navbar = () => {
                                 />
                             </div>
                         </div>
-                        <button onClick={handleLogOut} className="btn btn-outline border border-b-4 border-[#F99417] text-white uppercase">Sign Out</button>
+                        <button onClick={handleLogOut} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase">Sign Out</button>
                     </> : <>
-                        <Link to={'/login'} className="btn btn-outline border border-b-4 border-[#F99417] text-white uppercase">Sign In</Link>
+                        <Link to={'/login'} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase">Sign In</Link>
                     </>
                 }
             </div>

@@ -48,7 +48,7 @@ const SuccessStory = () => {
                         reviews.map(review => <SwiperSlide
                             key={review._id}
                         >
-                            <div className="flex flex-col items-center justify-center space-y-5 my-10 mx-20">
+                            <div className="flex flex-col items-center justify-center space-y-8 my-10 mx-20 py-14 border-2 rounded-xl">
                                 <div className="w-1/3 h-72 mask mask-hexagon-2"><img className="w-full" src={review.image} alt="" /></div>
                                 <Rating
                                     style={{ maxWidth: 180 }}

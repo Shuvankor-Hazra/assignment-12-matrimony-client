@@ -39,7 +39,7 @@ const PremiumMember = () => {
                                 <p className="px-2 text-sm">Occupation: {item.occupation}</p>
                             </div>
                             <div className="my-3">
-                                <Link to={`/details/${item._id}`} className="btn w-full">
+                                <Link to={`/details/${item._id}`} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full">
                                     View Profile
                                 </Link>
                             </div>
