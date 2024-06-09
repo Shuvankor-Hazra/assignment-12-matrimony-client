@@ -18,6 +18,10 @@ import ViewBiodata from "../../components/Dashboard/Guest/ViewBiodata";
 import AllBiodata from "../../pages/AllBiodata/AllBiodata";
 import AboutUs from "../../pages/AboutUs/AboutUs";
 import ContactUs from "../../pages/ContactUs/ContactUs";
+import MyContactRequest from "../../components/Dashboard/Guest/MyContactRequest";
+import FavoritesBiodata from "../../components/Dashboard/Guest/FavoritesBiodata";
+import ApprovedContactRequest from "../../components/Dashboard/Admin/ApprovedContactRequest";
+import ApprovedPremium from "../../components/Dashboard/Admin/ApprovedPremium";
 
 
 const router = createBrowserRouter([
@@ -83,6 +87,24 @@ const router = createBrowserRouter([
                     </PrivateRoutes>
             },
             {
+                path: 'approved-premium',
+                element:
+                    <PrivateRoutes>
+                        <AdminRoute>
+                            <ApprovedPremium />
+                        </AdminRoute>
+                    </PrivateRoutes>
+            },
+            {
+                path: 'approved-contact-request',
+                element:
+                    <PrivateRoutes>
+                        <AdminRoute>
+                            <ApprovedContactRequest />
+                        </AdminRoute>
+                    </PrivateRoutes>
+            },
+            {
                 path: 'profile',
                 element:
                     <PrivateRoutes>
@@ -109,6 +131,20 @@ const router = createBrowserRouter([
                 element:
                     <PrivateRoutes>
                         <ViewBiodata />
+                    </PrivateRoutes>
+            },
+            {
+                path: 'favorites-biodata',
+                element:
+                    <PrivateRoutes>
+                        <FavoritesBiodata />
+                    </PrivateRoutes>
+            },
+            {
+                path: 'my-contact-request',
+                element:
+                    <PrivateRoutes>
+                        <MyContactRequest />
                     </PrivateRoutes>
             },
 

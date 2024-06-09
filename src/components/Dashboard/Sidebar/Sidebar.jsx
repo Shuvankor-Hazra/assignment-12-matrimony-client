@@ -32,9 +32,9 @@ const Sidebar = () => {
         <>
             {/* Small Screen Navbar */}
             <div className='bg-gray-100 text-gray-800 flex justify-between md:hidden'>
-                <div>
-                    <div className='block cursor-pointer p-4 font-bold'>
-                        <Link to='/'>
+                <div className='cursor-pointer '>
+                    <div className='block p-4 font-bold'>
+                        <Link to={'/'}>
                             <img
                                 // className='hidden md:block'
                                 src={logo}
@@ -60,8 +60,8 @@ const Sidebar = () => {
             >
                 <div>
                     <div>
-                        <div className='w-full hidden md:flex px-4 py-4 shadow-lg rounded-lg justify-center items-center bg-base-300 mx-auto'>
-                            <Link to='/' className='flex items-center gap-3'>
+                        <Link to='/' className='cursor-pointer w-full hidden md:flex px-4 py-4 shadow-lg rounded-lg justify-center items-center bg-base-300 mx-auto'>
+                            <div className='flex items-center gap-3'>
                                 <img
                                     // className='hidden md:block'
                                     className='rounded-full border-4 border-[#f99417]'
@@ -70,18 +70,18 @@ const Sidebar = () => {
                                     height='60'
                                 />
                                 <h2 className='text-xl font-bold text-black'>Shaddi.com</h2>
-                            </Link>
-                        </div>
+                            </div>
+                        </Link>
                     </div>
 
                     {/* Nav Items */}
                     <div className='flex flex-col justify-between flex-1 mt-6'>
                         {/* Conditional toggle button here.. */}
-                        {isAdmin==='admin' && <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />}
+                        {isAdmin === 'admin' && <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />}
                         {/*  Menu Items */}
                         <nav>
-                            {isAdmin==='admin' ? toggle ? <AdminMenu /> : <GuestMenu /> : undefined}
-                            {isAdmin==='guest' && <GuestMenu />}
+                            {isAdmin === 'admin' ? toggle ? <AdminMenu /> : <GuestMenu /> : undefined}
+                            {isAdmin === 'guest' && <GuestMenu />}
                         </nav>
                     </div>
                 </div>
@@ -91,8 +91,7 @@ const Sidebar = () => {
 
                     {/* Profile Menu */}
                     <MenuItem label={'Profile'} address={'/dashboard/profile'} icon={FcSettings} />
-                    <button
-                        onClick={logOut}
+                    <button onClick={logOut}
                         className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'>
                         <GrLogout className='w-5 h-5' />
                         <span className='mx-4 font-medium'>Logout</span>

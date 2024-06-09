@@ -4,10 +4,12 @@ import useAuth from '../../hooks/useAuth';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import useRole from '../../hooks/useRole';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
     const [isAdmin] = useRole();
+    const [isRoleLoaded, setIsRoleLoaded] = useState(false);
 
     const handleLogOut = () => {
         try {
@@ -18,19 +20,26 @@ const Navbar = () => {
         }
     }
 
+    useEffect(() => {
+        if (isAdmin) {
+            setIsRoleLoaded(true);
+        }
+    }, [isAdmin]);
+
     const navItems = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/allBiodata'>All Biodata</NavLink></li>
         <li><NavLink to='/aboutUs'>About Us</NavLink></li>
         <li><NavLink to='/contactUs'>Contact Us</NavLink></li>
         {
-            isAdmin === 'admin' ?
-                <li><NavLink to='/dashboard/admin-home'>Dashboard</NavLink></li>
-                :
-                <li><NavLink to='/dashboard/edit-biodata'>Dashboard</NavLink></li>
+            isRoleLoaded && isAdmin === 'admin' &&
+            <li><NavLink to='/dashboard/admin-home'>Dashboard</NavLink></li>
+        }
+        {
+            isRoleLoaded && isAdmin === 'guest' &&
+            <li><NavLink to='/dashboard/edit-biodata'>Dashboard</NavLink></li>
         }
     </>
-
     return (
         <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white py-5 px-10">
             <div className="navbar-start">
@@ -50,7 +59,7 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu-horizontal space-x-6 text-xl font-medium font-playFair">
+                <ul className="menu-horizontal space-x-6 text-xl  font-playFair">
                     {navItems}
                 </ul>
             </div>
