@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
 import logo from '../../assets/matrimonial.png';
 import registerImg from '../../assets/register.jpg';
 import useAuth from "../../hooks/useAuth";
@@ -8,10 +8,12 @@ import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import useAxiosCommon from "../../hooks/useAxiosCommon";
 
 const Registration = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosCommon = useAxiosCommon();
     const from = location.state?.from?.pathname || "/";
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const { user,
@@ -20,15 +22,24 @@ const Registration = () => {
         setLoading,
         createUser,
         signInWithGoogle,
-        updateUserProfile, } = useAuth();
+        updateUserProfile,
+    } = useAuth();
 
     // email password registration
     const onSubmit = async (data) => {
         console.log(data);
         try {
+            setLoading(true);
             await createUser(data.email, data.password)
-            await updateUserProfile(data.name, data.photoURL);
-            setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
+            await updateUserProfile(data.photoURL, data.name);
+            await setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
+            const currentUser = {
+                name: data?.name,
+                email: data?.email,
+                status: 'normal',
+                role: 'guest'
+            }
+            await axiosCommon.put(`${import.meta.env.VITE_API_URL}/users`, currentUser)
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -66,6 +77,7 @@ const Registration = () => {
     }
 
     if (loading) return <LoadingSpinner />
+    if (user) return <Navigate to={'/'} />
 
     return (
         <>
@@ -95,7 +107,7 @@ const Registration = () => {
                         </div>
                         <div className='flex items-center justify-between mt-4'>
                             <span className='w-1/5 border-b  lg:w-1/4'></span>
-                            <div className='text-xs text-center text-gray-500 uppercase  hover:underline cursor-pointer'>
+                            <div className='text-xs text-center text-gray-500 uppercase hover:underline cursor-pointer'>
                                 or Registration with email
                             </div>
                             <span className='w-1/5 border-b dark:border-gray-400 lg:w-1/4'></span>
@@ -104,8 +116,7 @@ const Registration = () => {
                             <div className='mt-4'>
                                 <label
                                     className='block mb-2 text-sm font-medium text-gray-600 '
-                                    htmlFor='name'
-                                >
+                                    htmlFor='name'>
                                     User Name
                                 </label>
                                 <input
@@ -114,7 +125,7 @@ const Registration = () => {
                                     name='name'
                                     placeholder="User name"
                                     {...register("name", { required: true })}
-                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300'
                                     type='text'
                                 />
                                 {errors.name?.type === 'required' && <span className="text-warning font-medium">Name is required</span>}
@@ -132,7 +143,7 @@ const Registration = () => {
                                     name='photo'
                                     placeholder="PhotoURL"
                                     {...register("photoURL", { required: true })}
-                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300'
                                     type='text'
                                 />
                                 {errors.photoURL?.type === 'required' && <span className="text-warning font-medium">PhotoURL is required</span>}
@@ -150,7 +161,7 @@ const Registration = () => {
                                     name='email'
                                     placeholder="User email"
                                     {...register("email", { required: true })}
-                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300'
                                     type='email'
                                 />
                                 {errors.email?.type === 'required' && <span className="text-warning font-medium">Email is required</span>}
@@ -177,7 +188,7 @@ const Registration = () => {
                                         maxLength: 20,
                                         pattern: /(?=.*[0-9])(?=.*[- ?!@#$%^&*/\\])(?=.*[A-Z])(?=.*[a-z])/
                                     })}
-                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300'
                                     type='password'
                                 />
                                 {errors.password?.type === 'required' && <span className="text-warning font-medium">Password is required</span>}
@@ -200,7 +211,7 @@ const Registration = () => {
 
                             <Link
                                 to='/login'
-                                className='text-sm text-gray-500 uppercase  hover:underline'
+                                className='text-sm text-gray-500 uppercase hover:underline'
                             >
                                 or sign in
                             </Link>

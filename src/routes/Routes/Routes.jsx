@@ -43,11 +43,6 @@ const router = createBrowserRouter([
                 element: <Register />
             },
             {
-                path: '/details/:id',
-                element: <PrivateRoutes><Details /></PrivateRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:9000/premiumMembers/${params.id}`)
-            },
-            {
                 path: '/allBiodata',
                 element: <AllBiodata />
             },
@@ -58,6 +53,11 @@ const router = createBrowserRouter([
             {
                 path: '/contactUs',
                 element: <ContactUs />
+            },
+            {
+                path: '/details/:id',
+                element: <PrivateRoutes><Details /></PrivateRoutes>,
+                loader: ({ params }) => fetch(`http://localhost:9000/bioData/${params.id}`)
             },
         ]
     },

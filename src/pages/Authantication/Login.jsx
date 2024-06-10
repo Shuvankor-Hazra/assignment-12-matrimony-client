@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
 import loginImg from '../../assets/login.jpg';
 import logo from '../../assets/matrimonial.png';
 import { FaGoogle } from "react-icons/fa6";
@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 const Login = () => {
-    const { signIn, setLoading, signInWithGoogle } = useAuth();
+    const { user, signIn, setLoading, signInWithGoogle } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -56,6 +56,8 @@ const Login = () => {
             toast.error(err?.message);
         }
     }
+
+    if (user) return <Navigate to='/' />
     return (
         <>
             <Helmet>

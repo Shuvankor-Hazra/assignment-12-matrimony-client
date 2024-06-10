@@ -3,6 +3,7 @@ import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import ageJson from '../../../public/age.json';
 import useAxiosCommon from "../../hooks/useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 
 const AllBiodata = () => {
@@ -25,8 +26,8 @@ const AllBiodata = () => {
             <div className="pt-36 max-w-screen-xl mx-auto">
                 <SectionTitle heading={'All Biodatas'} subHeading={'Find Your Soulmate'} />
                 <div className="lg:flex gap-5">
-                    <div className="lg:w-4/12 border  rounded-xl">
-                        <h2 className="bg-gray-200 p-5 text-2xl font-medium  rounded-t-xl text-center">Find that special someone</h2>
+                    <div className="lg:w-3/12 border rounded-xl">
+                        <h2 className="bg-gray-200 p-5 text-2xl font-medium  rounded-t-xl text-center">Find special someone</h2>
                         <div className="p-5">
                             <div className='my-3'>
                                 <label className='block ms-2 mb-2 text-sm font-medium text-gray-600'
@@ -81,11 +82,11 @@ const AllBiodata = () => {
                         </div>
                     </div>
 
-                    <div className="lg:w-8/12 border rounded-xl">
+                    <div className="lg:w-9/12 border rounded-xl">
                         <h2 className="bg-gray-200 p-5 text-2xl font-medium rounded-t-xl text-center">All Bride & Groom</h2>
                         <div className="p-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
                             {biodata.map(item => <div key={item._id}>
-                                <div className="bg-base-100 border-2 rounded-xl">
+                                <div className="bg-base-100 shadow-xl rounded-xl">
                                     <div className="">
                                         <img src={item.image} className="h-72 w-full rounded-t-xl"/>
                                     </div>
@@ -95,7 +96,7 @@ const AllBiodata = () => {
                                         <h3 className="capitalize">Division: <span className="font-poppins font-medium">{item.permanentDivision}</span></h3>
                                         <h3 className="capitalize">Occupation: <span className="font-poppins font-medium">{item.occupation}</span></h3>
                                         <div className="">
-                                            <button className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase">View Profile</button>
+                                            <Link to={`/details/${item._id}`} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase">View Profile</Link>
                                         </div>
                                     </div>
                                 </div>

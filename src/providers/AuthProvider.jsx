@@ -11,8 +11,9 @@ import {
     updateProfile,
 } from 'firebase/auth'
 import { app } from '../firebase/firebase.config'
-import axios from 'axios'
+// import axios from 'axios'
 import useAxiosCommon from '../hooks/useAxiosCommon'
+import axios from 'axios'
 
 export const AuthContext = createContext(null)
 const auth = getAuth(app)
@@ -64,20 +65,20 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
-            console.log('CurrentUser-->', currentUser)
             if (currentUser) {
-                const userInfo = {email: currentUser.email};
+                const userInfo = { email: currentUser.email};
                 axiosCommon.post('/jwt', userInfo)
-                .then(res=>{
-                    if(res.data.token){
-                        localStorage.setItem('access-token', res.data.token)
-                    }
-                })
-                saveUser(currentUser)
-            }else{
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('access-token', res.data.token)
+                            setLoading(false)
+                        }
+                        saveUser(currentUser)
+                    })
+            } else {
                 localStorage.removeItem('access-token');
+                setLoading(false)
             }
-            setLoading(false)
         })
         return () => {
             setLoading(false)
@@ -95,6 +96,7 @@ const AuthProvider = ({ children }) => {
         signInWithGoogle,
         logOut,
         updateUserProfile,
+        // saveUser,
     }
 
     return (
