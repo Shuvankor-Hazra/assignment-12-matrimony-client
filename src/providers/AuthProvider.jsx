@@ -11,7 +11,6 @@ import {
     updateProfile,
 } from 'firebase/auth'
 import { app } from '../firebase/firebase.config'
-// import axios from 'axios'
 import useAxiosCommon from '../hooks/useAxiosCommon'
 import axios from 'axios'
 
@@ -50,11 +49,12 @@ const AuthProvider = ({ children }) => {
 
     // save user
     const saveUser = async (user) => {
+        console.log(user);
         const currentUser = {
-            name: user?.displayName,
-            email: user?.email,
-            status: 'normal',
-            role: 'guest'
+            name: user.displayName,
+            email: user.email,
+            role: 'make admin',
+            status: 'make premium',
         }
         const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/users`, currentUser)
         return data;
@@ -64,16 +64,17 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            console.log(currentUser);
             setUser(currentUser)
             if (currentUser) {
-                const userInfo = { email: currentUser.email};
+                const userInfo = { email: currentUser.email };
                 axiosCommon.post('/jwt', userInfo)
                     .then(res => {
                         if (res.data.token) {
                             localStorage.setItem('access-token', res.data.token)
+                            saveUser(currentUser)
                             setLoading(false)
                         }
-                        saveUser(currentUser)
                     })
             } else {
                 localStorage.removeItem('access-token');
@@ -81,7 +82,6 @@ const AuthProvider = ({ children }) => {
             }
         })
         return () => {
-            setLoading(false)
             return unsubscribe()
         }
     }, [axiosCommon]);
@@ -96,11 +96,12 @@ const AuthProvider = ({ children }) => {
         signInWithGoogle,
         logOut,
         updateUserProfile,
-        // saveUser,
     }
 
     return (
-        <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={authInfo}>
+            {children}
+        </AuthContext.Provider>
     )
 }
 

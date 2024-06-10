@@ -34,10 +34,10 @@ const Registration = () => {
             await updateUserProfile(data.photoURL, data.name);
             await setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
             const currentUser = {
-                name: data?.name,
-                email: data?.email,
-                status: 'normal',
-                role: 'guest'
+                name: data.name,
+                email: data.email,
+                role: 'make admin',
+                type: 'make premium',
             }
             await axiosCommon.put(`${import.meta.env.VITE_API_URL}/users`, currentUser)
             Swal.fire({

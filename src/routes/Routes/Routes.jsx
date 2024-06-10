@@ -114,9 +114,9 @@ const router = createBrowserRouter([
             {
                 path: 'edit-biodata',
                 element:
-                    <PrivateRoutes>
+                    // <PrivateRoutes>
+                    // </PrivateRoutes>
                         <GuestDashboard />
-                    </PrivateRoutes>
             },
             {
                 path: 'edit-biodata/:id',
@@ -147,8 +147,6 @@ const router = createBrowserRouter([
                         <MyContactRequest />
                     </PrivateRoutes>
             },
-
-
         ]
     }
 ]);

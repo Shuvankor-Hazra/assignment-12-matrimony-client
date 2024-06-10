@@ -1,8 +1,10 @@
 import { useLoaderData } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 
 const Details = () => {
     const data = useLoaderData();
+    const { user } = useAuth();
     console.log(data);
     return (
         <div className="pt-40 max-w-screen-xl mx-auto">
@@ -31,12 +33,17 @@ const Details = () => {
                         <p className="mt-2 capitalize">Expected Partner Height : {data.expectedPartnerHeight}</p>
                         <p className="mt-2 capitalize">Expected Partner Weight : {data.expectedPartnerWeight}</p>
 
-                        <p className="mt-2 capitalize">Email : {data.email}</p>
-                        <p className="mt-2 capitalize">Mobile : {data.mobileNumber}</p>
+                        {
+                            user?.type === "premium" &&
+                            <>
+                                <p className="mt-2 capitalize">Email : {data.email}</p>
+                                <p className="mt-2 capitalize">Mobile : {data.mobileNumber}</p>
+                            </>
+                        }
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

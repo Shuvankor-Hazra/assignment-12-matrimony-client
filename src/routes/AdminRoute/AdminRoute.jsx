@@ -8,7 +8,7 @@ const AdminRoute = ({ children }) => {
     const [isAdmin, isLoading] = useRole();
 
     if (isLoading) return <LoadingSpinner />
-    if (isAdmin==='admin') return children
+    if (isAdmin === 'admin') return children
     return <Navigate to={'/dashboard/edit-biodata'} />
 };
 

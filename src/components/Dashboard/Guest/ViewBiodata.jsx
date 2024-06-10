@@ -4,43 +4,73 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import LoadingSpinner from "../../LoadingSpinner";
 import Swal from "sweetalert2";
-import { MdDelete } from "react-icons/md";
-import { BiAddToQueue} from "react-icons/bi";
+import { BiAddToQueue } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const ViewBiodata = () => {
-
+    const { user } = useAuth();
     const axiosCommon = useAxiosCommon();
 
     const { data: biodata = [], isLoading, refetch } = useQuery({
         queryKey: ['bioData'],
         queryFn: async () => {
-            const { data } = await axiosCommon.get('/bioData')
+            const { data } = await axiosCommon.get(`/usersBioData/${user.email}`)
             console.log(data);
             return data;
         }
     });
     console.log(biodata);
 
-    const handleDeleteUser = (bioData) => {
+    // const handleDeleteUser = (bioData) => {
+    //     Swal.fire({
+    //         title: "Are you sure?",
+    //         text: "You won't be able to revert this!",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#3085d6",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes, delete it!"
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             axiosCommon.delete(`/bioData/${bioData._id}`)
+    //                 .then(res => {
+    //                     if (res.data.deletedCount > 0) {
+    //                         refetch();
+    //                         Swal.fire({
+    //                             position: 'top',
+    //                             title: "Deleted!",
+    //                             text: "Biodata has been deleted.",
+    //                             icon: "success",
+    //                             showConfirmButton: false,
+    //                             timer: 2000
+    //                         });
+    //                     }
+    //                 })
+    //         }
+    //     });
+    // }
+
+    const handleMakePremium = (item) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, Make premium it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosCommon.delete(`/bioData/${bioData._id}`)
+                // console.log(bioData);
+                axiosCommon.post('/makePremium', item)
                     .then(res => {
-                        if (res.data.deletedCount > 0) {
+                        if (res.data.insertedId) {
                             refetch();
                             Swal.fire({
                                 position: 'top',
-                                title: "Deleted!",
-                                text: "Biodata has been deleted.",
+                                title: "Send Request!",
+                                text: "Request has been send.",
                                 icon: "success",
                                 showConfirmButton: false,
                                 timer: 2000
@@ -86,14 +116,11 @@ const ViewBiodata = () => {
                                     <p><span className="text-xl font-playFair">Expected Partner Weight:</span> {item.expectedPartnerWeight}</p>
                                     <p><span className="text-xl font-playFair">Email:</span> {item.email}</p>
                                     <p><span className="text-xl font-playFair">Mobile Number:</span> {item.mobileNumber}</p>
-                                    <div className="flex justify-between py-2">
-
-                                        <Link to={`/dashboard/edit-biodata`} className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-5/12"><BiAddToQueue /></Link>
-
-                                        <button onClick={() => handleDeleteUser(item)} className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-5/12"><MdDelete /></button>
-
+                                    <div className="py-2">
+                                        <Link to={`/dashboard/edit-biodata`} className="btn text-3xl bg-slate-100 border-x-4 border-[#F99417] text-black w-full"><BiAddToQueue /></Link>
                                     </div>
-                                    <button className="btn bg-slate-100 border-x-4 border-[#F99417] text-black uppercase w-full py-2">Make biodata to premium</button>
+                                    <button onClick={() => handleMakePremium(item)}
+                                        className="btn bg-slate-100 border-x-4 border-[#F99417] text-black uppercase w-full py-2">{item.type}</button>
                                 </div>
                             </div>
                         </div>

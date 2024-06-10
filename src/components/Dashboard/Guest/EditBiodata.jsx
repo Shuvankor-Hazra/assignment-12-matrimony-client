@@ -51,6 +51,7 @@ const EditBiodata = () => {
                 expectedPartnerWeight: data.expectedPartnerWeight,
                 email: data.email,
                 mobileNumber: data.mobileNumber,
+                type: "Make premium",
             }
 
             // 

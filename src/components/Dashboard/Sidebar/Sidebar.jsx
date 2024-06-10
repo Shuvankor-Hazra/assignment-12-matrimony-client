@@ -47,16 +47,14 @@ const Sidebar = () => {
                 </div>
                 <button
                     onClick={handleToggle}
-                    className='mobile-menu-button p-4 focus:outline-none focus:bg-gray-200'
-                >
+                    className='mobile-menu-button p-4 focus:outline-none focus:bg-gray-200'>
                     <AiOutlineBars className='h-5 w-5' />
                 </button>
             </div>
 
             {/* Sidebar */}
             <div
-                className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-72 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
-                    }  md:translate-x-0  transition duration-200 ease-in-out`}
+                className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-72 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'}  md:translate-x-0  transition duration-200 ease-in-out`}
             >
                 <div>
                     <div>
@@ -81,11 +79,10 @@ const Sidebar = () => {
                         {/*  Menu Items */}
                         <nav>
                             {isAdmin === 'admin' ? toggle ? <AdminMenu /> : <GuestMenu /> : undefined}
-                            {isAdmin === 'guest' && <GuestMenu />}
+                            {isAdmin === 'make admin' && <GuestMenu />}
                         </nav>
                     </div>
                 </div>
-
                 <div>
                     <hr />
 
