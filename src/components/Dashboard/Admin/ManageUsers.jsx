@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../LoadingSpinner';
 import UsersTableRow from '../../TableRows/UsersTableRow';
+import SectionTitle from '../../SectionTitle/SectionTitle';
 
 const ManageUsers = () => {
     const axiosSecure = useAxiosSecure();
@@ -20,6 +21,7 @@ const ManageUsers = () => {
     return (
         <>
             <div className='container mx-auto px-4 sm:px-8'>
+                <SectionTitle heading={'Manage users'} subHeading={'All users'}/>
                 <Helmet>
                     <title>Shaddi.com | Manage Users</title>
                 </Helmet>
@@ -61,7 +63,7 @@ const ManageUsers = () => {
                                 </thead>
                                 <tbody>
                                     {/* User data table row */}
-                                    {users.map(user => <UsersTableRow key={user._id} user={user} refetch={refetch} />)}
+                                    {users?.map(user => <UsersTableRow key={user._id} user={user} refetch={refetch} />)}
                                 </tbody>
                             </table>
                         </div>

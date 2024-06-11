@@ -1,8 +1,9 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosCommon from "../../hooks/useAxiosCommon";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
 
 
 const Details = () => {
@@ -10,6 +11,14 @@ const Details = () => {
     const data = useLoaderData();
     const { user } = useAuth();
 
+    const { data: users } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await axiosCommon.get(`/users/${user.email}`)
+            return res.data;
+        }
+    })
+    console.log(users);
 
 
     const handleAddToFavorite = (data) => {
@@ -50,7 +59,7 @@ const Details = () => {
                     <div className="space-y-3">
                         <h1 className="text-xl font-semibold text-gray-800 capitalize">{data.gender}</h1>
                         <h1 className="text-xl font-semibold text-gray-800 capitalize">Name: {data.name}</h1>
-                        <p className="py-2 text-gray-700">Id : {data._id}</p>
+                        <p className="py-2 text-gray-700">Biodata Id : {data.bioDataId}</p>
                         <p className="mt-2 ">Birth Year : {data.dateOfBirth}</p>
                         <p className="mt-2 capitalize">Height : {data.height}</p>
                         <p className="mt-2 capitalize">Weight : {data.weight}</p>
@@ -68,7 +77,7 @@ const Details = () => {
                         <p className="mt-2 capitalize">Expected Partner Weight : {data.expectedPartnerWeight}</p>
 
                         {
-                            user?.type === "premium" &&
+                            users?.status === "premium" &&
                             <>
                                 <p className="mt-2 capitalize">Email : {data.email}</p>
                                 <p className="mt-2 capitalize">Mobile : {data.mobileNumber}</p>
@@ -76,7 +85,10 @@ const Details = () => {
                         }
                         <button onClick={() => handleAddToFavorite(data)} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full">Add to favorites</button>
 
-                        <button className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full">Request Contact Information</button>
+                        {
+                            users?.status === "make premium" &&
+                            <Link to={`/payment/${data._id}`} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full">Request Contact Information</Link>
+                        }
                     </div>
                 </div>
             </div>

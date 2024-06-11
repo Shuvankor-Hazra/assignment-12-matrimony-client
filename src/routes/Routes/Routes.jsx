@@ -22,6 +22,7 @@ import MyContactRequest from "../../components/Dashboard/Guest/MyContactRequest"
 import FavoritesBiodata from "../../components/Dashboard/Guest/FavoritesBiodata";
 import ApprovedContactRequest from "../../components/Dashboard/Admin/ApprovedContactRequest";
 import ApprovedPremium from "../../components/Dashboard/Admin/ApprovedPremium";
+import Payment from "../../components/Payment/Payment";
 
 
 const router = createBrowserRouter([
@@ -57,6 +58,12 @@ const router = createBrowserRouter([
             {
                 path: '/details/:id',
                 element: <PrivateRoutes><Details /></PrivateRoutes>,
+                loader: ({ params }) => fetch(`http://localhost:9000/bioData/${params.id}`)
+            },
+            {
+                path: '/payment/:id',
+                element:
+                    <PrivateRoutes><Payment /></PrivateRoutes>,
                 loader: ({ params }) => fetch(`http://localhost:9000/bioData/${params.id}`)
             },
         ]
@@ -116,7 +123,7 @@ const router = createBrowserRouter([
                 element:
                     // <PrivateRoutes>
                     // </PrivateRoutes>
-                        <GuestDashboard />
+                    <GuestDashboard />
             },
             {
                 path: 'edit-biodata/:id',
@@ -147,6 +154,7 @@ const router = createBrowserRouter([
                         <MyContactRequest />
                     </PrivateRoutes>
             },
+
         ]
     }
 ]);

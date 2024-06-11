@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import ApprovePremiumTableRow from "../../TableRows/ApprovePremiumTableRow";
+import SectionTitle from "../../SectionTitle/SectionTitle";
 
 const ApprovedPremium = () => {
     const axiosSecure = useAxiosSecure()
@@ -16,6 +17,8 @@ const ApprovedPremium = () => {
     console.log(biodata);
     return (
         <div>
+            <Helmet title="Shaddi.com | Approved Premium" />
+            <SectionTitle heading={'Approved Premium'} subHeading={'Please approve it'}/>
             <div className='container mx-auto px-4 sm:px-8'>
                 <Helmet>
                     <title>Shaddi.com | Approved Premium</title>
