@@ -8,7 +8,12 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 const Login = () => {
-    const { user, signIn, setLoading, signInWithGoogle } = useAuth();
+    const { user,
+        signIn,
+        setLoading,
+        signInWithGoogle,
+        // saveUser
+    } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -43,6 +48,7 @@ const Login = () => {
         setLoading(false)
         try {
             await signInWithGoogle();
+            // await saveUser(user);
             Swal.fire({
                 position: "center",
                 icon: "success",

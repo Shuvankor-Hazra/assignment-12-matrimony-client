@@ -32,14 +32,13 @@ const Navbar = () => {
         <li><NavLink to='/aboutUs'>About Us</NavLink></li>
         <li><NavLink to='/contactUs'>Contact Us</NavLink></li>
         {
-            isRoleLoaded && isAdmin === 'admin' ?
-            <li><NavLink to='/dashboard/admin-home'>Dashboard</NavLink></li> :
-            <li><NavLink to='/dashboard/edit-biodata'>Dashboard</NavLink></li>
+            isRoleLoaded && isAdmin === 'admin' &&
+            <li><NavLink to='/dashboard/admin-home'>Dashboard</NavLink></li> 
         }
-        {/* {
+        {
             isRoleLoaded && isAdmin === 'make admin' &&
             <li><NavLink to='/dashboard/edit-biodata'>Dashboard</NavLink></li>
-        } */}
+        }
     </>
     return (
         <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white py-5 px-10">

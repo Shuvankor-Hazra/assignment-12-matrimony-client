@@ -1,11 +1,45 @@
 import { useLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAxiosCommon from "../../hooks/useAxiosCommon";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 
 const Details = () => {
+    const axiosCommon = useAxiosCommon();
     const data = useLoaderData();
     const { user } = useAuth();
-    console.log(data);
+
+
+
+    const handleAddToFavorite = (data) => {
+
+        const favoriteInfo = {
+            name: data.name,
+            bioDataId: data.bioDataId,
+            permanentDivision: data.permanentDivision,
+            occupation: data.occupation,
+            email: user.email
+        }
+
+        axiosCommon.post('/favoritesBiodata', favoriteInfo)
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: 'top',
+                        title: "Send Request!",
+                        text: "Request has been send.",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+                toast.error(err.message);
+            })
+    }
+
     return (
         <div className="pt-40 max-w-screen-xl mx-auto">
             <div className="lg:flex gap-8 rounded-xl border-2">
@@ -40,6 +74,9 @@ const Details = () => {
                                 <p className="mt-2 capitalize">Mobile : {data.mobileNumber}</p>
                             </>
                         }
+                        <button onClick={() => handleAddToFavorite(data)} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full">Add to favorites</button>
+
+                        <button className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full">Request Contact Information</button>
                     </div>
                 </div>
             </div>

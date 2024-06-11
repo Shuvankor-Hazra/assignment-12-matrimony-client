@@ -23,6 +23,7 @@ const Registration = () => {
         createUser,
         signInWithGoogle,
         updateUserProfile,
+        // saveUser
     } = useAuth();
 
     // email password registration
@@ -30,17 +31,18 @@ const Registration = () => {
         console.log(data);
         try {
             setLoading(true);
-            await createUser(data.email, data.password)
-            await updateUserProfile(data.photoURL, data.name);
-            await setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
             const currentUser = {
                 name: data.name,
                 email: data.email,
                 role: 'make admin',
                 type: 'make premium',
-            }
+                }
+            console.log(currentUser);
             await axiosCommon.put(`${import.meta.env.VITE_API_URL}/users`, currentUser)
-            Swal.fire({
+            await createUser(data.email, data.password)
+            await updateUserProfile(data.photoURL, data.name);
+            await setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
+                Swal.fire({
                 position: "center",
                 icon: "success",
                 title: "Sign Up Successful",
@@ -61,6 +63,7 @@ const Registration = () => {
     const handleGoogleSignIn = async () => {
         try {
             await signInWithGoogle();
+            // await saveUser(user);
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -125,7 +128,7 @@ const Registration = () => {
                                     name='name'
                                     placeholder="User name"
                                     {...register("name", { required: true })}
-                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300'
+                                    className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300'
                                     type='text'
                                 />
                                 {errors.name?.type === 'required' && <span className="text-warning font-medium">Name is required</span>}

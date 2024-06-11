@@ -62,7 +62,6 @@ const ViewBiodata = () => {
             confirmButtonText: "Yes, Make premium it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                // console.log(bioData);
                 axiosCommon.post('/makePremium', item)
                     .then(res => {
                         if (res.data.insertedId) {
