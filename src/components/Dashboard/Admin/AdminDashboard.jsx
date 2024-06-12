@@ -65,9 +65,9 @@ const AdminDashboard = () => {
     return (
         <div>
             <Helmet title="Shaddi.com | Admin Dashboard" />
-            <SectionTitle heading={'Admin Dashboard'} subHeading={''} />
+            <SectionTitle heading={'Admin Dashboard'} subHeading={'Dashboard'} />
 
-            <div className="flex flex-col lg:flex-row gap-5 justify-evenly border p-5 text-2xl font-semibold">
+            <div className="flex flex-col lg:flex-row gap-5 justify-evenly border p-5 text-2xl font-semibold text-center">
                 <div className="border p-10 bg-green-200">Total biodata: {biodata?.length}</div>
                 <div className="border p-10 bg-orange-200">Total male biodata: {maleBiodata?.length}</div>
                 <div className="border p-10 bg-blue-200">Total female biodata: {femaleBiodata?.length}</div>
