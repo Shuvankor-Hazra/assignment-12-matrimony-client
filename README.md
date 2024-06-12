@@ -1,10 +1,10 @@
-# Shaddi.com
+# Website Name:- Shaddi.com
 
-- admin mail:- admin@admin.com
-- admin pass:- Asd!23
-- live link:- https://shaadidotcom-af40a.web.app
+- Admin Email:- admin@admin.com
+- Admin Password:- Asd!23
+- Live Link:- https://shaadidotcom-af40a.web.app
 
-## About my website:
+## About My Website:-
 
 - Shaddi.com is an online platform designed to help individuals find and choose their life partners, facilitating the process of matchmaking.
 
