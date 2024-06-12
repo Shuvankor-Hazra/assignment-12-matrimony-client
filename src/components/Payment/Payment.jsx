@@ -8,7 +8,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_Pk);
 
 const Payment = () => {
     const data = useLoaderData();
-    console.log(data);
 
     return (
         <div className="max-w-screen-xl mx-auto pt-40">

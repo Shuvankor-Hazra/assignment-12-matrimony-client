@@ -69,7 +69,6 @@ const CheckOutForm = ({ data }) => {
                 }
                 axiosSecure.post('/contactRequest', contactRequestInfo)
                     .then(res => {
-                        console.log(res.data);
                         if (res.data.insertedId) {
                             Swal.fire({
                                 position: "top",
@@ -80,7 +79,7 @@ const CheckOutForm = ({ data }) => {
                             });
                         }
                     }).catch(error => {
-                        console.log(error, 'Already exists.......');
+                        console.log(error);
                         Swal.fire({
                             position: "top",
                             icon: "success",
@@ -92,7 +91,7 @@ const CheckOutForm = ({ data }) => {
             }
         }
     }
-    console.log(data);
+    
     return (
         <>
             <div className="flex flex-col lg:flex-row items-center justify-between mb-10 text-xl">

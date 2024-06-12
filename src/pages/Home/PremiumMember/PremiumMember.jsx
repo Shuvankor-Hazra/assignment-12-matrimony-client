@@ -12,7 +12,6 @@ const PremiumMember = () => {
         queryKey: ['premiumMembers'],
         queryFn: async () => {
             const res = await axiosCommon.get('/makePremium')
-            console.log(res.data);
             return res.data;
         }
     });

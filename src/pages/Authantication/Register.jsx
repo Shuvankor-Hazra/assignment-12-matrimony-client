@@ -28,7 +28,6 @@ const Registration = () => {
 
     // email password registration
     const onSubmit = async (data) => {
-        console.log(data);
         try {
             setLoading(true);
             const currentUser = {
@@ -37,7 +36,6 @@ const Registration = () => {
                 role: 'make admin',
                 type: 'make premium',
                 }
-            console.log(currentUser);
             await axiosCommon.put(`${import.meta.env.VITE_API_URL}/users`, currentUser)
             await createUser(data.email, data.password)
             await updateUserProfile( data.name, data.photoURL);

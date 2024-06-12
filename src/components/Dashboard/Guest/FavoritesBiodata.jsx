@@ -17,7 +17,6 @@ const FavoritesBiodata = () => {
             return res.data;
         }
     })
-    console.log(data);
 
     return (
         <div>

@@ -44,7 +44,6 @@ const UsersTableRow = ({ user, refetch }) => {
         try {
             await mutateAsync(userRole);
         } catch (err) {
-            console.log(err.message);
             toast.error(err.message);
         }
     }
@@ -60,7 +59,6 @@ const UsersTableRow = ({ user, refetch }) => {
             confirmButtonText: "Yes, Make premium it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                // console.log(bioData);
                 axiosSecure.patch(`/makePremiumUser/${id}`, { status: "premium" })
                     .then(res => {
                         if (res.data.modifiedCount > 0) {

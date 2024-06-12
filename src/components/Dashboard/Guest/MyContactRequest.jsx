@@ -18,8 +18,6 @@ const MyContactRequest = () => {
         }
     });
 
-    console.log(data);
-
     return (
         <div>
             <Helmet title="Shaddi.com | My Contact Request" />

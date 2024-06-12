@@ -16,11 +16,9 @@ const ViewBiodata = () => {
         queryKey: ['bioData'],
         queryFn: async () => {
             const { data } = await axiosCommon.get(`/usersBioData/${user.email}`)
-            console.log(data);
             return data;
         }
     });
-    console.log(biodata);
 
     // const handleDeleteUser = (bioData) => {
     //     Swal.fire({

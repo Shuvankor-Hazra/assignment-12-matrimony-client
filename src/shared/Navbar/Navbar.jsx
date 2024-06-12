@@ -16,7 +16,7 @@ const Navbar = () => {
             logOut()
             toast.success('Log out successful')
         } catch (err) {
-            console.log(err.message);
+            toast.error('Log out unsuccessful')
         }
     }
 

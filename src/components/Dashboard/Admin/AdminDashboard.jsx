@@ -4,11 +4,7 @@ import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../SectionTitle/SectionTitle";
 import { PieChart, Pie, Cell, Legend } from 'recharts';
 
-
-
 const AdminDashboard = () => {
-
-
 
     const axiosSecure = useAxiosSecure();
 
@@ -19,7 +15,6 @@ const AdminDashboard = () => {
             return res.data
         }
     })
-    console.log(data);
 
     const { data: biodata } = useQuery({
         queryKey: ['biodata'],
@@ -28,16 +23,10 @@ const AdminDashboard = () => {
             return res.data
         }
     })
-    console.log(biodata);
 
     const maleBiodata = biodata?.filter(bio => bio.gender === 'male')
-    console.log(maleBiodata);
-
     const femaleBiodata = biodata?.filter(bio => bio.gender === 'female')
-    console.log(femaleBiodata);
-
     const totalRevenue = data?.contactRequest * 5;
-    console.log(totalRevenue);
 
     const piData = [
         { name: 'Total biodata', value: biodata?.length },

@@ -19,7 +19,6 @@ const AllBiodata = () => {
         queryKey: ['bioData'],
         queryFn: async () => {
             const { data } = await axiosCommon.get('/bioData')
-            console.log(data);
             return data;
         }
     });

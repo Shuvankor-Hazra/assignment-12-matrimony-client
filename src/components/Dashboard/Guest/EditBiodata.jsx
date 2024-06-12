@@ -22,7 +22,6 @@ const EditBiodata = () => {
     // const from = location.state?.from?.pathname || "/";
 
     const onSubmit = async (data) => {
-        // console.log(data)
         // image upload to imgBB and then get an url
         const imageFile = { image: data.image[0] };
         const res = await axiosCommon.post(image_hosting_api, imageFile, {
@@ -56,7 +55,6 @@ const EditBiodata = () => {
 
             // 
             const bioDataRes = await axiosCommon.post('/bioData', bioData);
-            console.log(bioDataRes.data);
             if (bioDataRes.data.insertedId) {
                 // show success popup
                 reset();

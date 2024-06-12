@@ -14,7 +14,7 @@ const ApprovedPremium = () => {
             return data;
         }
     })
-    console.log(biodata);
+    
     return (
         <div>
             <Helmet title="Shaddi.com | Approved Premium" />

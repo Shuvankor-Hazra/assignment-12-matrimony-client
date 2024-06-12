@@ -17,20 +17,9 @@ const SuccessStory = () => {
         queryKey: ['successStory'],
         queryFn: async () => {
             const { data } = await axiosCommon.get('/successStory')
-            console.log(data);
             return data;
         }
     });
-
-    const { data: successStory = [] } = useQuery({
-        queryKey: ['successStory'],
-        queryFn: async () => {
-            const { data } = await axiosCommon.get('/successStory')
-            console.log(data);
-            return data;
-        }
-    });
-    console.log(successStory);
 
     if (isLoading) return <LoadingSpinner />
 
@@ -45,18 +34,20 @@ const SuccessStory = () => {
                     className="mySwiper"
                 >
                     {
-                        reviews.map(review => <SwiperSlide
+                        reviews?.map(review => <SwiperSlide
                             key={review._id}
                         >
-                            <div className="flex flex-col items-center justify-center space-y-8 my-10 mx-20 py-14 border-2 rounded-xl">
-                                <div className="w-1/3 h-72 mask mask-hexagon-2"><img className="w-full" src={review.image} alt="" /></div>
+                            <div className="flex flex-col items-center justify-center space-y-8 my-10 mx-5 lg:mx-20 py-14 border-2 rounded-xl">
+                                <div className="">
+                                    <img className="w-full rounded-full h-52" src={review?.image} alt="" />
+                                </div>
                                 <Rating
                                     style={{ maxWidth: 180 }}
-                                    value={review.reviewStar}
+                                    value={review?.reviewStar}
                                     readOnly
                                 />
-                                <p className="text-xl text-center">{review.successStory}</p>
-                                <h2 className="text-3xl text-orange-400">{review.marriageDate}</h2>
+                                <p className="text-xl text-center px-20">{review?.successStory}</p>
+                                <h2 className="text-3xl text-orange-400">{review?.marriageDate}</h2>
                             </div>
                         </SwiperSlide>)
                     }

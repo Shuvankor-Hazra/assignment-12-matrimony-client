@@ -49,7 +49,6 @@ const AuthProvider = ({ children }) => {
 
     // save user
     const saveUser = async (user) => {
-        console.log(user);
         const currentUser = {
             name: user.displayName,
             email: user.email,
@@ -64,7 +63,6 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            console.log(currentUser);
             setUser(currentUser)
             if (currentUser) {
                 const userInfo = { email: currentUser.email };

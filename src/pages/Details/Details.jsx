@@ -20,7 +20,6 @@ const Details = () => {
             return res.data;
         }
     })
-    console.log(users);
 
     const handleAddToFavorite = (data) => {
 
@@ -45,7 +44,6 @@ const Details = () => {
                     });
                 }
             }).catch(err => {
-                console.log(err);
                 toast.error(err.message);
             })
     }

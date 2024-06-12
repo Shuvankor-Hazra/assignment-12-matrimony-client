@@ -7,7 +7,6 @@ import bg from '../../../assets/yellow-backgroun.jpg';
 const Profile = () => {
     const { user, loading } = useAuth() || {};
     const [isAdmin, isLoading] = useRole();
-    console.log(user);
 
     if (isLoading || loading) return <LoadingSpinner />
     return (

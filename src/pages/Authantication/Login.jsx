@@ -25,7 +25,6 @@ const Login = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
         try {
             const result = await signIn(email, password)
             console.log(result)
@@ -38,7 +37,6 @@ const Login = () => {
             });
             navigate(from, { replace: true });
         } catch (err) {
-            console.log(err.message)
             toast.error(err.message)
         }
     }
@@ -58,7 +56,6 @@ const Login = () => {
             });
             navigate(from, { replace: true });
         } catch (err) {
-            console.log(err);
             toast.error(err?.message);
         }
     }
