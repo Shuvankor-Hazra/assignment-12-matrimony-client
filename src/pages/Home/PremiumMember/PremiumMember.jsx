@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxiosCommon from "../../../hooks/useAxiosCommon";
+import { useState } from "react";
 
 const PremiumMember = () => {
+    const [sortOrder, setSortOrder] = useState('descending');
     const axiosCommon = useAxiosCommon();
     const { data, isLoading } = useQuery({
         queryKey: ['premiumMembers'],
@@ -15,14 +17,36 @@ const PremiumMember = () => {
         }
     });
     const premiumMember = data?.filter(i => i.type === 'premium')
-    const showPremium = premiumMember?.slice(0, 6)
-    
+    const sortedPremiumMember = premiumMember?.sort((a, b) => {
+        const ageA = parseInt(b.age?.split(' ')[0]);
+        const ageB = parseInt(a.age?.split(' ')[0]);
+        if (sortOrder === 'ascending') {
+            return ageA - ageB;
+        } else {
+            return ageB - ageA;
+        }
+    });
+    const showPremium = sortedPremiumMember?.slice(0, 6);
+
     if (isLoading) return <LoadingSpinner />
 
     return (
         <div className="my-20">
             <div className="text-center mb-20">
                 <SectionTitle heading={'Our Premium Members'} subHeading={'Make premium'} />
+
+                <div className="flex justify-center items-center mb-5">
+                    <label className="mr-3 text-lg font-medium">Sort by Age:</label>
+                    <select
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(e.target.value)}
+                        className="select select-bordered"
+                    >
+                        <option value="ascending">Ascending</option>
+                        <option value="descending">Descending</option>
+                    </select>
+                </div>
+
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-5 lg:px-0">
                 {

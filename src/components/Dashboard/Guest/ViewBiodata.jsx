@@ -90,9 +90,9 @@ const ViewBiodata = () => {
             <div>
                 {
                     biodata.map(item => <div key={item._id} >
-                        <div className="lg:flex gap-5 rounded-xl border-2 my-10 p-2 lg:p-0">
-                            <div className="lg:w-1/3 ">
-                                <img className="w-full rounded-s-xl" src={item.image} alt="user" />
+                        <div className="lg:flex gap-5 rounded-xl border-2 my-10 p-2 lg:p-10">
+                            <div className="lg:w-1/3 flex items-center">
+                                <img className="w-full rounded-xl" src={item.image} alt="user" />
                             </div>
                             <div className="w-full lg:flex items-center justify-around py-3 text-xl font-semibold text-gray-800 text-poppins sm:text-center">
                                 <div className="space-y-2">
