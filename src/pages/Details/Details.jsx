@@ -37,7 +37,7 @@ const Details = () => {
                     Swal.fire({
                         position: 'top',
                         title: "Send Request!",
-                        text: "Request has been send.",
+                        text: "Added favorites biodata.",
                         icon: "success",
                         showConfirmButton: false,
                         timer: 2000
@@ -77,7 +77,7 @@ const Details = () => {
                         <p className="mt-2 capitalize">Expected Partner Weight : {data.expectedPartnerWeight}</p>
 
                         {
-                            users?.status === "premium" &&
+                            users?.type === "premium" &&
                             <>
                                 <p className="mt-2 capitalize">Email : {data.email}</p>
                                 <p className="mt-2 capitalize">Mobile : {data.mobileNumber}</p>
@@ -86,7 +86,7 @@ const Details = () => {
                         <button onClick={() => handleAddToFavorite(data)} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full">Add to favorites</button>
 
                         {
-                            users?.status === "make premium" &&
+                            users?.type === "make premium" &&
                             <Link to={`/payment/${data._id}`} className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full">Request Contact Information</Link>
                         }
                     </div>

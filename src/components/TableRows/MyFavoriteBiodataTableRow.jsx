@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosCommon from "../../hooks/useAxiosCommon";
 
 
 const MyFavoriteBiodataTableRow = ({ item, refetch }) => {
-    const axiosSecure = useAxiosSecure();
+    const axiosCommon = useAxiosCommon();
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -18,7 +18,7 @@ const MyFavoriteBiodataTableRow = ({ item, refetch }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/favoritesBiodata/${id}`)
+                axiosCommon.delete(`/favoritesBiodata/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
                             refetch()

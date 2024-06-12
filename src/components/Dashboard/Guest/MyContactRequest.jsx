@@ -10,7 +10,7 @@ const MyContactRequest = () => {
     const axiosCommon = useAxiosCommon();
     const { user } = useAuth();
 
-    const { data } = useQuery({
+    const { data,refetch } = useQuery({
         queryKey: ['contactRequest'],
         queryFn: async () => {
             const res = await axiosCommon.get(`/contactRequest/${user.email}`)
@@ -63,12 +63,18 @@ const MyContactRequest = () => {
                                     >
                                         Email
                                     </th>
+                                    <th
+                                        scope='col'
+                                        className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                                    >
+                                        Action
+                                    </th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 {/* User data table row */}
-                                {data?.map(item => <MyContactRequestTableRow key={item._id} item={item} />)}
+                                {data?.map(item => <MyContactRequestTableRow key={item._id} item={item} refetch={refetch}/>)}
                             </tbody>
                         </table>
                     </div>
