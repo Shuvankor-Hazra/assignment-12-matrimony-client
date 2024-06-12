@@ -20,7 +20,13 @@ const UsersTableRow = ({ user, refetch }) => {
         onSuccess: (data) => {
             refetch()
             console.log(data);
-            toast.success('User role updated successfully!');
+            Swal.fire({
+                position: "top",
+                icon: "success",
+                title: "User role updated successfully!",
+                showConfirmButton: false,
+                timer: 1500
+            });
             setIsOpen(false);
         }
     });
@@ -33,7 +39,7 @@ const UsersTableRow = ({ user, refetch }) => {
         }
         const userRole = {
             role: selected,
-            status: 'normal',
+            type: 'make premium',
         }
         try {
             await mutateAsync(userRole);
@@ -81,14 +87,13 @@ const UsersTableRow = ({ user, refetch }) => {
             <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                 <p className='text-gray-900 whitespace-no-wrap'>{user?.email}</p>
             </td>
-
             <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                {user?.status === "make premium" ? <button onClick={() => handleMakePremiumUser(user?._id)} className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
+                {user?.type === "make premium" ? <button onClick={() => handleMakePremiumUser(user?._id)} className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
                     <span
                         aria-hidden='true'
                         className='absolute inset-0 bg-green-200 opacity-50 rounded-full '
                     ></span>
-                    <span className='relative capitalize'>{user?.status}</span>
+                    <span className='relative capitalize'>{user?.type}</span>
                 </button> : "Premium"}
                 {/* Make Admin Modal */}
             </td>
@@ -101,7 +106,6 @@ const UsersTableRow = ({ user, refetch }) => {
                     ></span>
                     <span className='relative capitalize'>{user?.role}</span>
                 </button>
-                {/* Make Premium User Modal */}
                 <UpdateUserModal isOpen={isOpen} setIsOpen={setIsOpen} modalHandler={modalHandler} user={user} />
             </td>
         </tr>

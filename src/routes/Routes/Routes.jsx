@@ -58,13 +58,13 @@ const router = createBrowserRouter([
             {
                 path: '/details/:id',
                 element: <PrivateRoutes><Details /></PrivateRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:9000/bioData/${params.id}`)
+                loader: ({ params }) => fetch(`https://assignment-12-matrimony-server.vercel.app/bioData/${params.id}`)
             },
             {
                 path: '/payment/:id',
                 element:
                     <PrivateRoutes><Payment /></PrivateRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:9000/bioData/${params.id}`)
+                loader: ({ params }) => fetch(`https://assignment-12-matrimony-server.vercel.app/bioData/${params.id}`)
             },
         ]
     },
@@ -131,7 +131,7 @@ const router = createBrowserRouter([
                     <PrivateRoutes>
                         <GuestDashboard />
                     </PrivateRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:9000/bioData/${params.id}`)
+                loader: ({ params }) => fetch(`https://assignment-12-matrimony-server.vercel.app/bioData/${params.id}`)
             },
             {
                 path: 'view-biodata',

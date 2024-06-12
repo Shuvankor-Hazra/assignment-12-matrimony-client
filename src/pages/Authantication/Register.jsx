@@ -40,8 +40,8 @@ const Registration = () => {
             console.log(currentUser);
             await axiosCommon.put(`${import.meta.env.VITE_API_URL}/users`, currentUser)
             await createUser(data.email, data.password)
-            await updateUserProfile(data.photoURL, data.name);
-            await setUser({ ...user, photoURL: data.photoURL, displayName: data.name });
+            await updateUserProfile( data.name, data.photoURL);
+            await setUser({ ...user,displayName: data.name, photoURL: data.photoURL });
                 Swal.fire({
                 position: "center",
                 icon: "success",
@@ -63,7 +63,6 @@ const Registration = () => {
     const handleGoogleSignIn = async () => {
         try {
             await signInWithGoogle();
-            // await saveUser(user);
             Swal.fire({
                 position: "center",
                 icon: "success",
