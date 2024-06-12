@@ -1,8 +1,8 @@
 # Shaddi.com
 
--admin mail:- admin@admin.com
--admin pass:- Asd!23
--live link:- https://shaadidotcom-af40a.web.app
+- admin mail:- admin@admin.com
+- admin pass:- Asd!23
+- live link:- https://shaadidotcom-af40a.web.app
 
 ## About my website:
 
