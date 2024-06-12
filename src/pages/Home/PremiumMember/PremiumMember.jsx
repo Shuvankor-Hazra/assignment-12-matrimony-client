@@ -2,24 +2,20 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-// import useAxiosCommon from "../../../hooks/useAxiosCommon";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosCommon from "../../../hooks/useAxiosCommon";
 
 const PremiumMember = () => {
-    // const axiosCommon = useAxiosCommon();
-    const axiosSecure = useAxiosSecure();
+    const axiosCommon = useAxiosCommon();
     const { data, isLoading } = useQuery({
         queryKey: ['premiumMembers'],
         queryFn: async () => {
-            const { data } = await axiosSecure.get('/makePremium')
-            console.log(data);
-            return data;
+            const res = await axiosCommon.get('/makePremium')
+            console.log(res.data);
+            return res.data;
         }
     });
- console.log(data);
     const premiumMember = data?.filter(i => i.type === 'premium')
     const showPremium = premiumMember?.slice(0, 6)
-
     
     if (isLoading) return <LoadingSpinner />
 
@@ -28,7 +24,7 @@ const PremiumMember = () => {
             <div className="text-center mb-20">
                 <SectionTitle heading={'Our Premium Members'} subHeading={'Make premium'} />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-5 lg:px-0">
                 {
                     showPremium?.map(item => <div key={item._id} className="w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 ">
                         <img className="object-cover object-center w-full h-80 " src={item.image} alt="avatar" />

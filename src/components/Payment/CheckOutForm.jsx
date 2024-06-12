@@ -79,42 +79,51 @@ const CheckOutForm = ({ data }) => {
                                 timer: 1500
                             });
                         }
+                    }).catch(error => {
+                        console.log(error, 'Already exists.......');
+                        Swal.fire({
+                            position: "top",
+                            icon: "success",
+                            title: "Already exists",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     })
             }
         }
     }
-console.log(data);
+    console.log(data);
     return (
         <>
-        <div className="flex flex-col lg:flex-row items-center justify-between mb-10 text-xl">
-        <h2>Biodata Id: <span className="font-poppins font-medium">{data.bioDataId}</span></h2>
-        <h2>Email: {user.email}</h2>
-        </div>
-        <form onSubmit={handleSubmit}>
-            <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: '20px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
+            <div className="flex flex-col lg:flex-row items-center justify-between mb-10 text-xl">
+                <h2>Biodata Id: <span className="font-poppins font-medium">{data.bioDataId}</span></h2>
+                <h2>Email: {user.email}</h2>
+            </div>
+            <form onSubmit={handleSubmit}>
+                <CardElement
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: '20px',
+                                color: '#424770',
+                                '::placeholder': {
+                                    color: '#aab7c4',
+                                },
+                            },
+                            invalid: {
+                                color: '#9e2146',
                             },
                         },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    },
-                }}
-            />
-            <div className="mt-10 text-center">
-                <button className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full" type="submit" disabled={!stripe || !clientSecret}>
-                    Submit
-                </button>
-                <p className="text-red-400 pt-5">{error}</p>
-                {transactionId && <p className="text-green-400 pt-5">Your Transaction Id: {transactionId}</p>}
-            </div>
-        </form>
+                    }}
+                />
+                <div className="mt-10 text-center">
+                    <button className="btn bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase w-full" type="submit" disabled={!stripe || !clientSecret}>
+                        Submit
+                    </button>
+                    <p className="text-red-400 pt-5">{error}</p>
+                    {transactionId && <p className="text-green-400 pt-5">Your Transaction Id: {transactionId}</p>}
+                </div>
+            </form>
         </>
     );
 };

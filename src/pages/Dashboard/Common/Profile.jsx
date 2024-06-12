@@ -11,11 +11,11 @@ const Profile = () => {
 
     if (isLoading || loading) return <LoadingSpinner />
     return (
-        <div className='flex justify-center items-center h-screen cursor-default'>
+        <div className='flex justify-center items-center h-screen cursor-default my-20 lg:my-0'>
             <Helmet>
                 <title>Profile</title>
             </Helmet>
-            <div className='bg-white shadow-lg rounded-2xl w-4/5'>
+            <div className='bg-white shadow-lg rounded-2xl lg:w-4/5'>
                 <img
                     alt='profile'
                     // src='https://wallpapercave.com/wp/wp10784415.jpg'
@@ -34,7 +34,7 @@ const Profile = () => {
                     <p className='p-2 px-4 mt-3 text-sm text-black bg-[#f99417] rounded-full capitalize'>
                         {isAdmin}
                     </p>
-                    <p className='mt-3 text-xl font-medium text-gray-800 underline '>
+                    <p className='mt-3 font-medium text-gray-800  '>
                         User Id: {user?.uid}
                     </p>
                     <div className='w-full p-2 mt-4 rounded-lg'>
@@ -51,7 +51,7 @@ const Profile = () => {
                             </p>
 
                             <div className='space-y-2'>
-                                <button className='bg-[#f99417] px-10 py-2 rounded-lg text-black cursor-pointer hover:bg-[#db8214] block mb-1'>
+                                <button className='bg-[#f99417] px-10 py-2 rounded-lg text-black cursor-pointer hover:bg-[#db8214] block my-2'>
                                     Update Profile
                                 </button>
                                 <button className='bg-[#f99417] px-7 py-2 rounded-lg text-black cursor-pointer hover:bg-[#db8214]'>

@@ -33,15 +33,17 @@ const Sidebar = () => {
             {/* Small Screen Navbar */}
             <div className='bg-gray-100 text-gray-800 flex justify-between md:hidden'>
                 <div className='cursor-pointer '>
-                    <div className='block p-4 font-bold'>
-                        <Link to={'/'}>
+                    <div className='block p-4 font-bold '>
+                        <Link className='flex items-center gap-3' to={'/'}>
                             <img
                                 // className='hidden md:block'
                                 src={logo}
                                 alt='logo'
                                 width='50'
                                 height='50'
+                                className='rounded-full border-2 border-[#f99417]'
                             />
+                            <h1>Shaddi.com</h1>
                         </Link>
                     </div>
                 </div>

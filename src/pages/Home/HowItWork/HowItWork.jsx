@@ -7,7 +7,7 @@ const HowItWork = () => {
         <div className="bg-base-200 px-10 py-20 rounded-xl">
             <SectionTitle heading={'How it works'} subHeading={'Get started in 3 easy steps'} />
             <div className="lg:flex">
-                <div className="w-1/3 flex flex-col items-center justify-center text-center pt-10">
+                <div className="lg:w-1/3 flex flex-col items-center justify-center text-center pt-10">
                     <div className="w-40 h-40 bg-red-200 rounded-full flex items-center justify-center">
                         <FaUser className="text-7xl" />
                     </div>
@@ -17,7 +17,7 @@ const HowItWork = () => {
                     <p className="text-lg">Create your detail profile, add photos and describe your partner preference</p>
                 </div>
 
-                <div className="w-1/3 flex flex-col items-center justify-center text-center pt-10">
+                <div className="lg:w-1/3 flex flex-col items-center justify-center text-center pt-10">
                     <div className="w-40 h-40 bg-red-300 rounded-full flex items-center justify-center">
                         <FaUser className="text-7xl" />
                     </div>
@@ -27,7 +27,7 @@ const HowItWork = () => {
                     <p className="text-lg">Search your preferred partner by location, education, interest and so on</p>
                 </div>
 
-                <div className="w-1/3 flex flex-col items-center justify-center text-center pt-10">
+                <div className="lg:w-1/3 flex flex-col items-center justify-center text-center pt-10">
                     <div className="w-40 h-40 bg-red-400 rounded-full flex items-center justify-center">
                         <FaUser className="text-7xl" />
                     </div>

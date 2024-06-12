@@ -322,7 +322,7 @@ const EditBiodata = () => {
 
                     </div>
                     <div className="flex justify-center mt-8">
-                        <button className="btn w-full" type="submit">Save And Publish Now</button>
+                        <button className="btn w-full bg-gray-500 border border-b-4 border-[#F99417] text-white uppercase" type="submit">Save And Publish Now</button>
                     </div>
                 </form>
             </div>
