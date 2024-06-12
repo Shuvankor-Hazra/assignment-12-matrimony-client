@@ -24,4 +24,4 @@
 
 - Tailwind CSS ensures that the website is fully responsive, providing a consistent and optimal user experience across various devices and screen sizes.
 
--The use of cutting-edge technologies and frameworks signifies adherence to modern development practices, ensuring the platform is robust, maintainable, and scalable for future enhancements.
+- The use of cutting-edge technologies and frameworks signifies adherence to modern development practices, ensuring the platform is robust, maintainable, and scalable for future enhancements.
