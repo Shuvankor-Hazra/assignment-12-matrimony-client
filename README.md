@@ -1,4 +1,5 @@
 # Website Name:- Shaddi.com
+- Shaddi.com is an online platform designed to help individuals find and choose their life partners, facilitating the process of matchmaking.
 
 - Admin Email:- admin@admin.com
 - Admin Password:- Asd!23
@@ -6,7 +7,6 @@
 
 ## About My Website:-
 
-- Shaddi.com is an online platform designed to help individuals find and choose their life partners, facilitating the process of matchmaking.
 
 - The website is built using modern web technologies including React for the frontend, Tailwind CSS for styling, and Node.js with Express for the backend.
 
@@ -25,3 +25,11 @@
 - Tailwind CSS ensures that the website is fully responsive, providing a consistent and optimal user experience across various devices and screen sizes.
 
 - The use of cutting-edge technologies and frameworks signifies adherence to modern development practices, ensuring the platform is robust, maintainable, and scalable for future enhancements.
+
+## Installation:
+### Clone the repository: git clone https://github.com/yourusername/art-crafts.git
+- Navigate to the project directory: cd art-crafts
+- Install dependencies: npm install
+### Usage:
+- Start the development server: npm start
+- Open your browser and navigate to http://localhost:3000
