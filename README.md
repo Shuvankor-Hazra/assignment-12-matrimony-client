@@ -27,9 +27,11 @@
 - The use of cutting-edge technologies and frameworks signifies adherence to modern development practices, ensuring the platform is robust, maintainable, and scalable for future enhancements.
 
 ## Installation:
-### Clone the repository: git clone https://github.com/yourusername/art-crafts.git
+
+### Clone the repository: git clone https://github.com/Shuvankor-Hazra/assignment-12-matrimony-client.git
 - Navigate to the project directory: cd art-crafts
 - Install dependencies: npm install
+- 
 ### Usage:
 - Start the development server: npm start
 - Open your browser and navigate to http://localhost:3000
